@@ -12,7 +12,6 @@ func _process(delta: float) -> void:
 
 
 func _on_BreakTimer_timeout() -> void:
-	pass # Replace with function body.
 	# change scene to collab mode
-	Globals.currentGameType = Globals.GAME_TYPE.COLLABORATIVE
+	Globals.changeGameState(Globals.GAME_TYPE.COLLABORATIVE)
 	Globals.changeScene(Globals.gameScene)

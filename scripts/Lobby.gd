@@ -15,6 +15,7 @@ func _ready() -> void:
 func _player_connected(id) -> void:
 	print("Player %s has connected" %id)
 	_addPlayer(id)
+	Network.clients.append(id)
 	
 func _player_disconnected(id) -> void:
 	print("Player %s has disconnected" %id)
@@ -23,6 +24,7 @@ func _player_disconnected(id) -> void:
 func _connected_to_server() -> void:
 	print("Connected To Server")
 	_addPlayer(get_tree().get_network_unique_id())
+	Network.clients.append(get_tree().get_network_unique_id())
 	
 func _server_created() -> void:
 	if get_tree().is_network_server():

@@ -6,6 +6,8 @@ const MAX_CLIENTS = 2
 var server = null
 var client = null
 
+var clients = []
+
 var ipAddress = ""
 
 signal server_created

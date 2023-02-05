@@ -22,16 +22,16 @@ __meta__ = {
 }
 
 [node name="RichTextLabel" type="Label" parent="VBoxContainer"]
-margin_right = 338.0
-margin_bottom = 76.0
+margin_right = 252.0
+margin_bottom = 60.0
 rect_min_size = Vector2( 200, 60 )
 custom_fonts/font = ExtResource( 1 )
 text = "Next shape:"
 
 [node name="Control" type="Control" parent="VBoxContainer"]
-margin_top = 80.0
-margin_right = 338.0
-margin_bottom = 80.0
+margin_top = 64.0
+margin_right = 252.0
+margin_bottom = 64.0
 size_flags_horizontal = 3
 size_flags_vertical = 3
 

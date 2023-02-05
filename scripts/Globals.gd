@@ -1,12 +1,14 @@
 extends Node
 
-const GAME_TIME:float = 10.0	# seconds
+const GAME_TIME:float =15.0	# seconds
 const BREAK_TIME:float = 5.0	# seconds
 
 enum GAME_TYPE {INDIVIDUAL, BREAK, COLLABORATIVE, END}
+enum GAME_CONTROL {NORMAL, MOVE_ONLY, ROTATE_ONLY}
 
 signal inact_shape
 signal add_points
+signal gameCtrlUpdate
 
 var inactive=[]
 var inactive_blocks=[]
@@ -14,6 +16,7 @@ var points=0
 var speed=1
 
 var currentGameType = GAME_TYPE.INDIVIDUAL
+var currentGameControl = GAME_CONTROL.NORMAL
 
 # SCENES
 var mainMenuScene = "res://MainMenu.tscn"
@@ -37,6 +40,12 @@ func restart_game():
 	inactive_blocks.clear()
 	get_tree().reload_current_scene()
 	
+func initializeGameVariables() -> void:
+	speed=1
+	points=0
+	inactive.clear()
+	inactive_blocks.clear()
+	
 func changeScene(scene):
 	rpc("syncScene", scene)
 	
@@ -47,5 +56,13 @@ func changeGameState(newGameState):
 	rpc("updateGameState", newGameState)
 
 remotesync func updateGameState(newGameState):
-	print(newGameState)
 	currentGameType = newGameState
+	
+func assignGameControl(gameControl):
+	rpc("updateGameControl", gameControl)
+
+remotesync func updateGameControl(gameControl):
+	print(gameControl)
+	var ctrl = gameControl[get_tree().get_network_unique_id()]
+	currentGameControl = ctrl
+	emit_signal("gameCtrlUpdate")
