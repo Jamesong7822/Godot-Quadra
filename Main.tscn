@@ -25,4 +25,5 @@ autostart = true
 
 [node name="Points_Panel" parent="." instance=ExtResource( 5 )]
 position = Vector2( 400, 50 )
+
 [connection signal="timeout" from="Timer" to="." method="_on_Timer_timeout"]
