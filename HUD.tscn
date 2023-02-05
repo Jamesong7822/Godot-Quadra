@@ -1,0 +1,59 @@
+[gd_scene load_steps=5 format=2]
+
+[ext_resource path="res://NextShapePanel.tscn" type="PackedScene" id=1]
+[ext_resource path="res://Points_Panel.tscn" type="PackedScene" id=2]
+[ext_resource path="res://TimePanel.tscn" type="PackedScene" id=3]
+[ext_resource path="res://assets/Font Resources/ButtonFont.tres" type="DynamicFont" id=4]
+
+[node name="HUD" type="Control"]
+anchor_right = 1.0
+anchor_bottom = 1.0
+margin_bottom = -1720.0
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="HBoxContainer" type="HBoxContainer" parent="."]
+anchor_right = 1.0
+anchor_bottom = 1.0
+size_flags_horizontal = 3
+size_flags_vertical = 3
+custom_constants/separation = 50
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="NextShapePanel" parent="HBoxContainer" instance=ExtResource( 1 )]
+anchor_right = 0.0
+anchor_bottom = 0.0
+margin_right = 320.0
+margin_bottom = 200.0
+
+[node name="GameTypeLabel" type="Label" parent="HBoxContainer"]
+margin_left = 370.0
+margin_top = 62.0
+margin_right = 710.0
+margin_bottom = 138.0
+custom_fonts/font = ExtResource( 4 )
+text = "INDIVIDUAL"
+align = 1
+valign = 1
+
+[node name="VBoxContainer" type="VBoxContainer" parent="HBoxContainer"]
+margin_left = 760.0
+margin_right = 1080.0
+margin_bottom = 200.0
+size_flags_horizontal = 3
+
+[node name="Points_Panel" parent="HBoxContainer/VBoxContainer" instance=ExtResource( 2 )]
+anchor_right = 0.0
+anchor_bottom = 0.0
+margin_right = 320.0
+margin_bottom = 98.0
+
+[node name="TimePanel" parent="HBoxContainer/VBoxContainer" instance=ExtResource( 3 )]
+anchor_right = 0.0
+anchor_bottom = 0.0
+margin_top = 102.0
+margin_right = 320.0
+margin_bottom = 200.0
