@@ -13,11 +13,17 @@ var ipAddress = ""
 signal server_created
 
 func _ready() -> void:
-	for ip in IP.get_local_addresses():
-		if ip.begins_with("192.168"):
-			ipAddress = ip
+	getIPAddress()
 	get_tree().connect("connected_to_server", self, "_connected_to_server")
 	get_tree().connect("server_disconnected", self, "_server_disconnected")
+	
+func getIPAddress() -> void:
+	print("Get IP Address")
+	var addresses = []
+	for ip in IP.get_local_addresses():
+		if ip.begins_with("10.") or ip.begins_with("172.16.") or ip.begins_with("192.168."):
+			addresses.push_back(ip)
+	ipAddress = addresses[0]
 	
 func reset() -> void:
 	if server:

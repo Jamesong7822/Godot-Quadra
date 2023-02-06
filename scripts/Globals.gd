@@ -1,7 +1,7 @@
 extends Node
 
-const GAME_TIME:float =15.0	# seconds
-const BREAK_TIME:float = 5.0	# seconds
+const GAME_TIME:float =7*60.0 #15.0	# seconds
+const BREAK_TIME:float = 2*60.0 # 5.0	# seconds
 
 enum GAME_TYPE {INDIVIDUAL, BREAK, COLLABORATIVE, END}
 enum GAME_CONTROL {NORMAL, MOVE_ONLY, ROTATE_ONLY}
