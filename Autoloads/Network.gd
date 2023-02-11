@@ -22,7 +22,6 @@ func _ready() -> void:
 	
 func _process(delta: float) -> void:
 	pythonClient.poll()
-	sendData()
 	
 func getIPAddress() -> void:
 	print("Get IP Address")
@@ -82,8 +81,8 @@ func on_python_server_data_received() -> void:
 	var payload = JSON.parse(pythonClient.get_peer(1).get_packet().get_string_from_utf8()).result
 	print("Received: %s" %payload)
 	
-func sendData() -> void:
+func sendData(message:String) -> void:
 	if not pythonClient.get_peer(1).is_connected_to_host():
 		print("ERROR: Not Connected To Python Server!")
 		return
-	pythonClient.get_peer(1).put_packet("START".to_utf8())
+	pythonClient.get_peer(1).put_packet(message.to_utf8())

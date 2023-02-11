@@ -16,31 +16,9 @@ var next_num:int=0
 var counter:int=0
 
 func _ready():
-	# Call restart game
-	Globals.initializeGameVariables()
-	shapes=[shape1,shape2,shape3,shape4,shape5,shape6,shape7]
-	rnd.randomize()
-	if get_tree().is_network_server():
-		var randomSeed = rnd.randi()
-		rpc("syncRandomSeed", randomSeed)
-
 	# Connect Signals
 	Globals.connect("gameCtrlUpdate", self, "onGameCtrlUpdate")
-	
-	yield(get_tree().create_timer(0.5), "timeout")
 	$Timer.wait_time=Globals.speed
-	
-	# Assign game control if required
-	assignGameControl()
-
-	if Globals.currentGameType == Globals.GAME_TYPE.INDIVIDUAL:
-		$Timer.start()
-	elif Globals.currentGameType == Globals.GAME_TYPE.COLLABORATIVE:
-		if get_tree().is_network_server():
-			$Timer.start()
-	# Start game timer
-	$GameTimer.wait_time = Globals.GAME_TIME
-	$GameTimer.start()
 	
 func onGameCtrlUpdate() -> void:
 	print("Game Ctrl Update!")
@@ -88,6 +66,33 @@ func _on_Timer_timeout():
 			rpc("move_down")
 		elif Globals.currentGameType == Globals.GAME_TYPE.INDIVIDUAL:
 			move_down()
+
+remotesync func startGame() -> void:
+	# Call the function via RPC to sync the start of the game
+	Globals.initializeGameVariables()
+	shapes=[shape1,shape2,shape3,shape4,shape5,shape6,shape7]
+	rnd.randomize()
+	if get_tree().is_network_server():
+		var randomSeed = rnd.randi()
+		rpc("syncRandomSeed", randomSeed)
+	
+	# Assign game control if required
+	assignGameControl()
+
+	if Globals.currentGameType == Globals.GAME_TYPE.INDIVIDUAL:
+		$Timer.start()
+	elif Globals.currentGameType == Globals.GAME_TYPE.COLLABORATIVE:
+		if get_tree().is_network_server():
+			$Timer.start()
+	# Start game timer
+	$GameTimer.wait_time = Globals.GAME_TIME
+	$GameTimer.start()
+	
+	# Send Event Signal
+	if Globals.currentGameType == Globals.GAME_TYPE.INDIVIDUAL:
+		Network.sendData("START_I")
+	elif Globals.currentGameType == Globals.GAME_TYPE.COLLABORATIVE:
+		Network.sendData("START_C")
 		
 remotesync func spawnBlock(num, next_num, counter) -> void:
 	if Globals.currentGameType != Globals.GAME_TYPE.INDIVIDUAL and Globals.currentGameType != Globals.GAME_TYPE.COLLABORATIVE:
@@ -162,8 +167,12 @@ func _on_GameTimer_timeout() -> void:
 		Globals.changeGameState(Globals.GAME_TYPE.BREAK)
 		# change scene
 		Globals.changeScene(Globals.breakScreenScene)
+		# Send event
+		Network.sendData("END_I")
 	elif Globals.currentGameType == Globals.GAME_TYPE.COLLABORATIVE:
 		# Go To End Game Scene
 		Globals.changeGameState(Globals.GAME_TYPE.END)
 		# change scene
 		Globals.changeScene((Globals.endGameScene))
+		# Send End Event
+		Network.sendData("END_C")
