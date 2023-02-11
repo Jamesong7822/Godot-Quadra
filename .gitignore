@@ -9,3 +9,10 @@ export_presets.cfg
 data_*/
 
 Exports/
+
+Python Server/venv
+
+Python Server/dist
+Python Server/build
+
+*.spec
