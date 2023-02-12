@@ -39,7 +39,10 @@ func reset() -> void:
 	
 func connectToPythonServer() -> void:
 	# Start Python Server
-	OS.execute("Python Server\\dist\\server\\server.exe", [], false, [], true)
+	if OS.has_feature("standalone"):
+		OS.execute("server.exe", [], false, [], true)
+	else:
+		OS.execute("Python Server\\dist\\server.exe", [], false, [], true)
 	yield(get_tree().create_timer(0.1), "timeout")
 	pythonClient.connect("connection_closed", self, "on_python_server_closed")
 	pythonClient.connect("connection_error", self, "on_python_server_connection_error")
