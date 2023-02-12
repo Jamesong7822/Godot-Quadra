@@ -67,3 +67,8 @@ remotesync func updateGameControl(gameControl):
 	var ctrl = gameControl[get_tree().get_network_unique_id()]
 	currentGameControl = ctrl
 	emit_signal("gameCtrlUpdate")
+
+func _notification(what):
+	if what == MainLoop.NOTIFICATION_WM_QUIT_REQUEST:
+		Network.sendData("STOP_SERVER")
+		get_tree().quit() # default behavior

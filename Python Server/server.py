@@ -15,11 +15,19 @@ print("Server listening on Port " + str(PORT))
 # A set of connected ws clients
 connected = set()
 
-def handler(message):
+async def handler(message):
+    if message == "STOP_SERVER":
+        await stopServer()
+        sys.exit()
+        return
     try:
         oxysoft.push_sample([message])
     except Exception as e:
         print(e)
+
+async def stopServer():
+    loop = asyncio.get_event_loop()
+    loop.stop()
 
 # The main behavior function for this server
 async def echo(websocket, path):
@@ -30,7 +38,7 @@ async def echo(websocket, path):
     try:
         async for message in websocket:
             print("Received message from client: {}".format(message.decode("utf-8")))
-            handler(message.decode("utf-8"))
+            await handler(message.decode("utf-8"))
     # Handle disconnecting clients 
     except websockets.exceptions.ConnectionClosed as e:
         print("A client just disconnected")
