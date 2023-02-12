@@ -16,6 +16,10 @@ var next_num:int=0
 var counter:int=0
 
 func _ready():
+	#Display instructions for fixed time
+	yield(get_tree().create_timer(5.0), "timeout")
+	#$Timer.wait_time=Globals.INSTRUCTION_TIME
+	$CanvasLayer/InstructionScreen.hide()
 	# Call restart game
 	Globals.initializeGameVariables()
 	shapes=[shape1,shape2,shape3,shape4,shape5,shape6,shape7]
