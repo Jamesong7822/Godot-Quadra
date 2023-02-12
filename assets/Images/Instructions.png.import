@@ -1,0 +1,13 @@
+[remap]
+
+importer="image"
+type="Image"
+path="res://.import/Instructions.png-821784cb223d95aa1f76ef3bf2725a9e.image"
+
+[deps]
+
+source_file="res://assets/Images/Instructions.png"
+dest_files=[ "res://.import/Instructions.png-821784cb223d95aa1f76ef3bf2725a9e.image" ]
+
+[params]
+

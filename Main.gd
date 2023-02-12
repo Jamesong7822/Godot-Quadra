@@ -19,6 +19,7 @@ func _ready():
 	# Connect Signals
 	Globals.connect("gameCtrlUpdate", self, "onGameCtrlUpdate")
 	$Timer.wait_time=Globals.speed
+	$CanvasLayer/InstructionsPanel.connect("finished", self, "on_instructions_panel_finished")
 	
 func onGameCtrlUpdate() -> void:
 	print("Game Ctrl Update!")
@@ -26,6 +27,11 @@ func onGameCtrlUpdate() -> void:
 	$CanvasLayer/HUD/HBoxContainer/GameInfoContainer/GameTypeLabel.text = str(Globals.GAME_TYPE.keys()[Globals.currentGameType])
 	$CanvasLayer/HUD/HBoxContainer/GameInfoContainer/GameControlLabel.text = str(Globals.GAME_CONTROL.keys()[Globals.currentGameControl])
 	
+func on_instructions_panel_finished() -> void:
+	# start the game
+	if get_tree().is_network_server():
+		rpc("startGame")
+
 remotesync func syncRandomSeed(seedVal):
 	print("Received Random Seed: %d" %seedVal)
 	rnd.seed = seedVal

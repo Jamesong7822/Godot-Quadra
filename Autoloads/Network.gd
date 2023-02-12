@@ -85,4 +85,5 @@ func sendData(message:String) -> void:
 	if not pythonClient.get_peer(1).is_connected_to_host():
 		print("ERROR: Not Connected To Python Server!")
 		return
+	print("Sending Event Data: %s" %message)
 	pythonClient.get_peer(1).put_packet(message.to_utf8())
