@@ -58,7 +58,9 @@ func move_down():
 			if not ch.can_move_down():
 				print("create position: %s e position: %s"%[create_position,position])
 				if create_position==position:
-					Globals.restart_game()
+					# clear board instead of restarting game
+					#Globals.restart_game()
+					Globals.clearBoard()
 				is_fixed=true
 				return
 		position.y+=80
