@@ -12,7 +12,7 @@ if not os.path.exists(DEBUG_FOLDER):
 logName = "debug_{}.txt".format(datetime.now().strftime("%Y-%m-%d_%H%M%S"))
 logging.basicConfig(filename=os.path.join(DEBUG_FOLDER, logName),
                     filemode='a',
-                    format='[%(asctime)s.%(msecs)d] [%(name)25s] [%(levelname)8s] %(message)s',
+                    format='[%(asctime)19s.%(msecs)3d] [%(name)25s] [%(levelname)8s] %(message)s',
                     datefmt='%Y-%m-%d %H:%M:%S',
                     level=logging.DEBUG)
 
