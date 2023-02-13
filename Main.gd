@@ -66,6 +66,7 @@ func _on_Timer_timeout():
 			rpc("spawnBlock", num, next_num, counter)
 		elif Globals.currentGameType == Globals.GAME_TYPE.INDIVIDUAL:
 			spawnBlock(num, next_num, counter)
+		counter += 1
 		
 	else:
 		if Globals.currentGameType == Globals.GAME_TYPE.COLLABORATIVE and get_tree().is_network_server():
@@ -110,7 +111,6 @@ remotesync func spawnBlock(num, next_num, counter) -> void:
 	sh.position=Vector2(320,80)
 	active_block=true
 	$Timer.start()
-	counter += 1
 
 remotesync func move_left():
 	if not active_block:

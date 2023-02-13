@@ -4,17 +4,21 @@ const GAME_TIME:float =7*60.0 #15.0	# seconds
 const BREAK_TIME:float = 2*60.0 # 5.0	# seconds
 const INSTRUCTIONS_TIME:float = 10.0 # seconds
 
+const CLEAR_BOARD_PENALTY:int = 100
+
 enum GAME_TYPE {INDIVIDUAL, BREAK, COLLABORATIVE, END}
 enum GAME_CONTROL {NORMAL, MOVE_ONLY, ROTATE_ONLY}
 
 signal inact_shape
-signal add_points
+signal update_points
 signal gameCtrlUpdate
 
 var inactive=[]
 var inactive_blocks=[]
 var points=0
 var speed=1
+
+var numTimesClearBoard = 0
 
 var currentGameType = GAME_TYPE.INDIVIDUAL
 var currentGameControl = GAME_CONTROL.NORMAL
@@ -32,18 +36,29 @@ func add_points():
 	points+=100
 	if points%100==0 and speed>.3:
 		speed-=.1
-	emit_signal("add_points")
+	emit_signal("update_points")
 	
-func restart_game():
-	speed=1
-	points=0
+func clearBoard() -> void:
+	print("CLEARING BOARD")
+	# Subtract penalty from score
+	points -= CLEAR_BOARD_PENALTY
+	for block in inactive_blocks:
+		block.queue_free()
+	# Clear the inactive blocks
 	inactive.clear()
 	inactive_blocks.clear()
+	# Update counter
+	numTimesClearBoard += 1
+	emit_signal("update_points")
+	
+func restart_game():
+	initializeGameVariables()
 	get_tree().reload_current_scene()
 	
 func initializeGameVariables() -> void:
 	speed=1
 	points=0
+	numTimesClearBoard = 0
 	inactive.clear()
 	inactive_blocks.clear()
 	
