@@ -16,6 +16,11 @@ func _player_connected(id) -> void:
 	print("Player %s has connected" %id)
 	_addPlayer(id)
 	Network.clients.append(id)
+	# Called on both clients and server when a peer connects. Send my info to it.
+	var subjectIDText = $MarginContainer/CenterContainer/VBoxContainer/SubjectIDInput.text
+	var my_info = {"subject_id": subjectIDText, "IScore": 0, "CScore": 0}
+	rpc("register_player", my_info)
+	
 	
 func _player_disconnected(id) -> void:
 	print("Player %s has disconnected" %id)
@@ -30,6 +35,9 @@ func _server_created() -> void:
 	if get_tree().is_network_server():
 		$MarginContainer/CenterContainer/VBoxContainer/StartGameButton.disabled = false
 		_addPlayer(get_tree().get_network_unique_id())
+		var subjectIDText = $MarginContainer/CenterContainer/VBoxContainer/SubjectIDInput.text
+		var my_info = {"subject_id": subjectIDText, "IScore": 0, "CScore": 0}
+		Globals.PLAYER_INFO[get_tree().get_network_unique_id()] = my_info
 
 remote func _addPlayer(id):
 	$MarginContainer/CenterContainer/VBoxContainer/PlayerList.addPlayer(id)
@@ -43,9 +51,9 @@ func _on_CreateServerButton_pressed() -> void:
 
 
 func _on_JoinServerButton_pressed() -> void:
-	if $MarginContainer/CenterContainer/VBoxContainer/LineEdit.text == "":
+	if $MarginContainer/CenterContainer/VBoxContainer/IPAddressInput.text == "":
 		return
-	Network.ipAddress = $MarginContainer/CenterContainer/VBoxContainer/LineEdit.text
+	Network.ipAddress = $MarginContainer/CenterContainer/VBoxContainer/IPAddressInput.text
 	Network.joinServer()
 
 
@@ -54,6 +62,13 @@ func _on_StartGameButton_pressed() -> void:
 		return
 	print("Server Start Game")
 	rpc("startGame")
+	print(Globals.PLAYER_INFO)
 	
 remotesync func startGame() -> void:
 	get_tree().change_scene_to(gameScene)
+	
+remotesync func register_player(info):
+	# Get the id of the RPC sender
+	var id = get_tree().get_rpc_sender_id()
+	# Store the info
+	Globals.PLAYER_INFO[id] = info
