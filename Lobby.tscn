@@ -51,12 +51,13 @@ size_flags_vertical = 3
 
 [node name="VBoxContainer" type="VBoxContainer" parent="MarginContainer/CenterContainer"]
 margin_left = 130.0
+margin_top = 66.0
 margin_right = 693.0
-margin_bottom = 1819.0
+margin_bottom = 1597.0
 rect_min_size = Vector2( 500, 0 )
 size_flags_horizontal = 3
 size_flags_vertical = 3
-custom_constants/separation = 128
+custom_constants/separation = 80
 
 [node name="SubjectIDInput" type="LineEdit" parent="MarginContainer/CenterContainer/VBoxContainer"]
 margin_right = 563.0
@@ -67,9 +68,9 @@ expand_to_text_length = true
 placeholder_text = "Key In Subject ID"
 
 [node name="IPAddressInput" type="LineEdit" parent="MarginContainer/CenterContainer/VBoxContainer"]
-margin_top = 214.0
+margin_top = 166.0
 margin_right = 563.0
-margin_bottom = 300.0
+margin_bottom = 252.0
 rect_min_size = Vector2( 550, 0 )
 size_flags_horizontal = 3
 size_flags_vertical = 3
@@ -79,9 +80,9 @@ expand_to_text_length = true
 placeholder_text = "Key In IP Address"
 
 [node name="VBoxContainer" type="VBoxContainer" parent="MarginContainer/CenterContainer/VBoxContainer"]
-margin_top = 428.0
+margin_top = 332.0
 margin_right = 563.0
-margin_bottom = 596.0
+margin_bottom = 500.0
 size_flags_horizontal = 3
 size_flags_vertical = 3
 
@@ -105,31 +106,31 @@ text = "Join Server"
 [node name="PlayerList" parent="MarginContainer/CenterContainer/VBoxContainer" instance=ExtResource( 6 )]
 anchor_right = 0.0
 anchor_bottom = 0.0
-margin_top = 724.0
+margin_top = 580.0
 margin_right = 563.0
-margin_bottom = 1124.0
+margin_bottom = 980.0
 rect_min_size = Vector2( 0, 400 )
 
 [node name="SelectGameModeButton" type="Button" parent="MarginContainer/CenterContainer/VBoxContainer"]
-margin_top = 1252.0
+margin_top = 1060.0
 margin_right = 563.0
-margin_bottom = 1334.0
+margin_bottom = 1142.0
 custom_fonts/font = ExtResource( 3 )
 disabled = true
 toggle_mode = true
 text = "Individual First"
 
 [node name="StartGameButton" type="Button" parent="MarginContainer/CenterContainer/VBoxContainer"]
-margin_top = 1462.0
+margin_top = 1222.0
 margin_right = 563.0
-margin_bottom = 1544.0
+margin_bottom = 1304.0
 custom_fonts/font = ExtResource( 3 )
 text = "Start Game"
 
 [node name="IPAddress" type="Label" parent="MarginContainer/CenterContainer/VBoxContainer"]
-margin_top = 1672.0
+margin_top = 1384.0
 margin_right = 563.0
-margin_bottom = 1819.0
+margin_bottom = 1531.0
 custom_fonts/font = ExtResource( 4 )
 text = "192.168.1.1"
 
