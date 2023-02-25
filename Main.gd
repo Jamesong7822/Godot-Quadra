@@ -18,7 +18,6 @@ var counter:int=0
 func _ready():
 	# Connect Signals
 	Globals.connect("gameCtrlUpdate", self, "onGameCtrlUpdate")
-	$Timer.wait_time=Globals.speed
 	$CanvasLayer/InstructionsPanel.connect("finished", self, "on_instructions_panel_finished")
 	
 func onGameCtrlUpdate() -> void:
@@ -77,6 +76,7 @@ func _on_Timer_timeout():
 remotesync func startGame() -> void:
 	# Call the function via RPC to sync the start of the game
 	Globals.initializeGameVariables()
+	$Timer.wait_time=Globals.speed
 	shapes=[shape1,shape2,shape3,shape4,shape5,shape6,shape7]
 	rnd.randomize()
 	if get_tree().is_network_server():
