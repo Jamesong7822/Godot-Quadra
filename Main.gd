@@ -39,6 +39,10 @@ remotesync func syncRandomSeed(seedVal):
 func _process(delta: float) -> void:
 	# Update the game time label
 	$CanvasLayer/HUD/HBoxContainer/VBoxContainer/TimePanel.updateTimeRemaining($GameTimer.time_left)
+	
+	# Sync game time
+	if get_tree().is_network_server():
+		rpc("syncGameTimer", $GameTimer.time_left)
 
 func assignGameControl() -> void:
 	if not get_tree().is_network_server():
@@ -91,15 +95,21 @@ remotesync func startGame() -> void:
 	elif Globals.currentGameType == Globals.GAME_TYPE.COLLABORATIVE:
 		if get_tree().is_network_server():
 			$Timer.start()
+	# Sync the game timer to server
 	# Start game timer
-	$GameTimer.wait_time = Globals.GAME_TIME
-	$GameTimer.start()
+	if get_tree().is_network_server():
+		$GameTimer.wait_time = Globals.GAME_TIME
+		$GameTimer.start()
 	
 	# Send Event Signal
 	if Globals.currentGameType == Globals.GAME_TYPE.INDIVIDUAL:
 		Network.sendData("START_I")
 	elif Globals.currentGameType == Globals.GAME_TYPE.COLLABORATIVE:
 		Network.sendData("START_C")
+		
+remote func syncGameTimer(gameTime) -> void:
+	if get_tree().get_rpc_sender_id() == 1:
+		$GameTimer.time_left = gameTime
 		
 remotesync func spawnBlock(num, next_num, counter) -> void:
 	if Globals.currentGameType != Globals.GAME_TYPE.INDIVIDUAL and Globals.currentGameType != Globals.GAME_TYPE.COLLABORATIVE:
