@@ -109,7 +109,7 @@ margin_bottom = 1120.0
 custom_fonts/font = ExtResource( 3 )
 disabled = true
 toggle_mode = true
-text = "Individual FIrst"
+text = "Individual First"
 
 [node name="StartGameButton" type="Button" parent="MarginContainer/CenterContainer/VBoxContainer"]
 margin_top = 1248.0
