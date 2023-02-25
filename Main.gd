@@ -177,20 +177,37 @@ func _input(event):
 func _on_GameTimer_timeout() -> void:
 #	if not get_tree().is_network_server():
 #		return
-	if Globals.currentGameType == Globals.GAME_TYPE.INDIVIDUAL:
-		# Go To Break
-		Globals.changeGameState(Globals.GAME_TYPE.BREAK)
-		# change scene
-		Globals.changeScene(Globals.breakScreenScene)
-		# Send event
-		Network.sendData("END_I")
-	elif Globals.currentGameType == Globals.GAME_TYPE.COLLABORATIVE:
-		# Go To End Game Scene
-		Globals.changeGameState(Globals.GAME_TYPE.END)
-		# change scene
-		Globals.changeScene((Globals.endGameScene))
-		# Send End Event
-		Network.sendData("END_C")
+	if Globals.currentGameMode == Globals.GAME_MODE.INDIVIDUAL_FIRST:
+		if Globals.currentGameType == Globals.GAME_TYPE.INDIVIDUAL:
+			# Go To Break
+			Globals.changeGameState(Globals.GAME_TYPE.BREAK)
+			# change scene
+			Globals.changeScene(Globals.breakScreenScene)
+			# Send event
+			Network.sendData("END_I")
+		elif Globals.currentGameType == Globals.GAME_TYPE.COLLABORATIVE:
+			# Go To End Game Scene
+			Globals.changeGameState(Globals.GAME_TYPE.END)
+			# change scene
+			Globals.changeScene((Globals.endGameScene))
+			# Send End Event
+			Network.sendData("END_C")
+	else:
+		# COLLAB FIRST
+		if Globals.currentGameType == Globals.GAME_TYPE.COLLABORATIVE:
+			# Go To Break
+			Globals.changeGameState(Globals.GAME_TYPE.BREAK)
+			# change scene
+			Globals.changeScene(Globals.breakScreenScene)
+			# Send event
+			Network.sendData("END_C")
+		elif Globals.currentGameType == Globals.GAME_TYPE.INDIVIDUAL:
+			# Go To End Game Scene
+			Globals.changeGameState(Globals.GAME_TYPE.END)
+			# change scene
+			Globals.changeScene((Globals.endGameScene))
+			# Send End Event
+			Network.sendData("END_I")
 
 func _on_SyncTimer_timeout() -> void:
 	# Sync game time
