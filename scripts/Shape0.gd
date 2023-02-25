@@ -60,7 +60,10 @@ func move_down():
 				if create_position==position:
 					# clear board instead of restarting game
 					#Globals.restart_game()
-					Globals.clearBoard()
+					if Globals.currentGameType == Globals.GAME_TYPE.COLLABORATIVE and get_tree().is_network_server():
+						Globals.rpc("clearBoard")
+					elif Globals.currentGameType == Globals.GAME_TYPE.INDIVIDUAL:
+						Globals.clearBoard()
 				is_fixed=true
 				return
 		position.y+=80

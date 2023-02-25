@@ -38,7 +38,7 @@ func add_points():
 		speed-=.1
 	emit_signal("update_points")
 	
-func clearBoard() -> void:
+remotesync func clearBoard() -> void:
 	print("CLEARING BOARD")
 	# Subtract penalty from score
 	points -= CLEAR_BOARD_PENALTY
