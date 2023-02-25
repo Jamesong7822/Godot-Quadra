@@ -18,3 +18,5 @@ Python Server/build
 *.spec
 
 DEBUG_LOGS/
+
+.DS_Store
