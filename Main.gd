@@ -91,15 +91,24 @@ remotesync func startGame() -> void:
 	elif Globals.currentGameType == Globals.GAME_TYPE.COLLABORATIVE:
 		if get_tree().is_network_server():
 			$Timer.start()
+	# Sync the game timer to server
 	# Start game timer
-	$GameTimer.wait_time = Globals.GAME_TIME
-	$GameTimer.start()
+	if get_tree().is_network_server():
+		$GameTimer.wait_time = Globals.GAME_TIME
+		$GameTimer.start()
 	
 	# Send Event Signal
 	if Globals.currentGameType == Globals.GAME_TYPE.INDIVIDUAL:
 		Network.sendData("START_I")
 	elif Globals.currentGameType == Globals.GAME_TYPE.COLLABORATIVE:
 		Network.sendData("START_C")
+		
+	$SyncTimer.start()
+		
+remote func syncGameTimer(gameTime) -> void:
+	if get_tree().get_rpc_sender_id() == 1:
+		$GameTimer.wait_time = gameTime
+		$GameTimer.start()
 		
 remotesync func spawnBlock(num, next_num, counter) -> void:
 	if Globals.currentGameType != Globals.GAME_TYPE.INDIVIDUAL and Globals.currentGameType != Globals.GAME_TYPE.COLLABORATIVE:
@@ -152,7 +161,7 @@ func _input(event):
 		else:
 			if Globals.currentGameControl == Globals.GAME_CONTROL.MOVE_ONLY or Globals.currentGameControl == Globals.GAME_CONTROL.NORMAL:
 				rpc("move_left")
-	if Input.is_action_just_pressed("ui_down"):
+	if Input.is_action_pressed("ui_down"):
 		if Globals.currentGameType == Globals.GAME_TYPE.INDIVIDUAL:
 			userInputMoveDown()
 		else:
@@ -182,3 +191,8 @@ func _on_GameTimer_timeout() -> void:
 		Globals.changeScene((Globals.endGameScene))
 		# Send End Event
 		Network.sendData("END_C")
+
+func _on_SyncTimer_timeout() -> void:
+	# Sync game time
+	if get_tree().is_network_server():
+		rpc("syncGameTimer", $GameTimer.time_left)
