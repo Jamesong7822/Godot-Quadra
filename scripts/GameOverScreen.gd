@@ -1,7 +1,8 @@
 extends Control
 
 func _ready():
-	saveUserData(Globals.PLAYER_INFO)
+	if get_tree().is_network_server():
+		saveUserData(Globals.PLAYER_INFO)
 
 func saveUserData(dict):
 	var datetime_string = Time.get_datetime_string_from_system()
