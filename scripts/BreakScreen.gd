@@ -8,7 +8,7 @@ func _ready() -> void:
 	
 func _process(delta: float) -> void:
 	# Update the time left
-	$MarginContainer/CenterContainer/VBoxContainer/TimeLeft.text = str($BreakTimer.time_left)
+	$MarginContainer/CenterContainer/VBoxContainer/TimeLeft.text = "%.0f" % $BreakTimer.time_left
 
 
 func _on_BreakTimer_timeout() -> void:

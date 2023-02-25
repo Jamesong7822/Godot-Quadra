@@ -9,7 +9,7 @@ func _ready() -> void:
 	
 func _process(delta: float) -> void:
 	# update the time label with how much time left
-	$CenterContainer/TimeLabel.text = "%.2f" % $Timer.time_left
+	$CenterContainer/TimeLabel.text = "%.0f" % $Timer.time_left
 
 func _on_Timer_timeout() -> void:
 	emit_signal("finished")

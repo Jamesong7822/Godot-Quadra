@@ -63,6 +63,7 @@ margin_top = 151.0
 margin_right = 657.0
 margin_bottom = 298.0
 custom_fonts/font = ExtResource( 2 )
+align = 1
 
 [node name="BreakTimer" type="Timer" parent="."]
 one_shot = true
