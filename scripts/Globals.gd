@@ -6,6 +6,7 @@ const INSTRUCTIONS_TIME:float = 10.0 # seconds
 
 const CLEAR_BOARD_PENALTY:int = 100
 
+enum GAME_MODE {INDIVIDUAL_FIRST, COLLABORATIVE_FIRST}
 enum GAME_TYPE {INDIVIDUAL, BREAK, COLLABORATIVE, END}
 enum GAME_CONTROL {NORMAL, MOVE_ONLY, ROTATE_ONLY}
 
@@ -20,6 +21,7 @@ var speed=1
 
 var numTimesClearBoard = 0
 
+var currentGameMode = GAME_MODE.INDIVIDUAL_FIRST
 var currentGameType = GAME_TYPE.INDIVIDUAL
 var currentGameControl = GAME_CONTROL.NORMAL
 
@@ -87,3 +89,16 @@ func _notification(what):
 	if what == MainLoop.NOTIFICATION_WM_QUIT_REQUEST:
 		Network.sendData("STOP_SERVER")
 		get_tree().quit() # default behavior
+		
+remotesync func syncGameMode(gameMode:bool) -> void:
+	if gameMode:
+		currentGameMode = GAME_MODE.COLLABORATIVE_FIRST
+		print("Setting Game Mode To Collaborative First!")
+	else:
+		currentGameMode = GAME_MODE.INDIVIDUAL_FIRST
+		print("Setting Game Mode To Individual First!")
+		
+	if currentGameMode == GAME_MODE.COLLABORATIVE_FIRST:
+		currentGameType = GAME_TYPE.COLLABORATIVE
+	else:
+		currentGameType = GAME_TYPE.INDIVIDUAL

@@ -13,5 +13,9 @@ func _process(delta: float) -> void:
 
 func _on_BreakTimer_timeout() -> void:
 	# change scene to collab mode
-	Globals.changeGameState(Globals.GAME_TYPE.COLLABORATIVE)
-	Globals.changeScene(Globals.gameScene)
+	if get_tree().is_network_server():
+		if Globals.currentGameMode == Globals.GAME_MODE.INDIVIDUAL_FIRST:
+			Globals.changeGameState(Globals.GAME_TYPE.COLLABORATIVE)
+		elif Globals.currentGameMode == Globals.GAME_MODE.COLLABORATIVE_FIRST:
+			Globals.changeGameState(Globals.GAME_TYPE.INDIVIDUAL)
+		Globals.changeScene(Globals.gameScene)

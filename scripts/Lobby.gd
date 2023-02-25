@@ -40,6 +40,7 @@ func _removePlayer(id):
 func _on_CreateServerButton_pressed() -> void:
 	#hide()
 	Network.createServer()
+	$MarginContainer/CenterContainer/VBoxContainer/SelectGameModeButton.disabled=false
 
 
 func _on_JoinServerButton_pressed() -> void:
@@ -57,3 +58,21 @@ func _on_StartGameButton_pressed() -> void:
 	
 remotesync func startGame() -> void:
 	get_tree().change_scene_to(gameScene)
+
+func _on_SelectGameModeButton_toggled(button_pressed: bool) -> void:
+	var selectGameModeBtn = $MarginContainer/CenterContainer/VBoxContainer/SelectGameModeButton
+	if button_pressed:
+		selectGameModeBtn.text = "Collaboration First"
+	else:
+		selectGameModeBtn.text = "Individual First"
+	if get_tree().is_network_server():
+		rpc("syncSelectGameModeBtnState", button_pressed)
+		Globals.rpc("syncGameMode", button_pressed)
+		
+remote func syncSelectGameModeBtnState(state: bool) -> void:
+	var selectGameModeBtn = $MarginContainer/CenterContainer/VBoxContainer/SelectGameModeButton
+	if get_tree().get_rpc_sender_id() == 1:
+		if state:
+			selectGameModeBtn.text = "Collaboration First"
+		else:
+			selectGameModeBtn.text = "Individual First"

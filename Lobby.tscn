@@ -51,9 +51,9 @@ size_flags_vertical = 3
 
 [node name="VBoxContainer" type="VBoxContainer" parent="MarginContainer/CenterContainer"]
 margin_left = 130.0
-margin_top = 134.0
+margin_top = 29.0
 margin_right = 693.0
-margin_bottom = 1529.0
+margin_bottom = 1634.0
 rect_min_size = Vector2( 500, 0 )
 size_flags_horizontal = 3
 size_flags_vertical = 3
@@ -102,20 +102,30 @@ margin_right = 563.0
 margin_bottom = 910.0
 rect_min_size = Vector2( 0, 400 )
 
-[node name="StartGameButton" type="Button" parent="MarginContainer/CenterContainer/VBoxContainer"]
+[node name="SelectGameModeButton" type="Button" parent="MarginContainer/CenterContainer/VBoxContainer"]
 margin_top = 1038.0
 margin_right = 563.0
 margin_bottom = 1120.0
 custom_fonts/font = ExtResource( 3 )
+disabled = true
+toggle_mode = true
+text = "Individual First"
+
+[node name="StartGameButton" type="Button" parent="MarginContainer/CenterContainer/VBoxContainer"]
+margin_top = 1248.0
+margin_right = 563.0
+margin_bottom = 1330.0
+custom_fonts/font = ExtResource( 3 )
 text = "Start Game"
 
 [node name="IPAddress" type="Label" parent="MarginContainer/CenterContainer/VBoxContainer"]
-margin_top = 1248.0
+margin_top = 1458.0
 margin_right = 563.0
-margin_bottom = 1395.0
+margin_bottom = 1605.0
 custom_fonts/font = ExtResource( 4 )
 text = "192.168.1.1"
 
 [connection signal="pressed" from="MarginContainer/CenterContainer/VBoxContainer/VBoxContainer/CreateServerButton" to="." method="_on_CreateServerButton_pressed"]
 [connection signal="pressed" from="MarginContainer/CenterContainer/VBoxContainer/VBoxContainer/JoinServerButton" to="." method="_on_JoinServerButton_pressed"]
+[connection signal="toggled" from="MarginContainer/CenterContainer/VBoxContainer/SelectGameModeButton" to="." method="_on_SelectGameModeButton_toggled"]
 [connection signal="pressed" from="MarginContainer/CenterContainer/VBoxContainer/StartGameButton" to="." method="_on_StartGameButton_pressed"]
