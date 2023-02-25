@@ -185,6 +185,8 @@ func _on_GameTimer_timeout() -> void:
 			Globals.changeScene(Globals.breakScreenScene)
 			# Send event
 			Network.sendData("END_I")
+			Globals.PLAYER_INFO[get_tree().get_network_unique_id()]["IScore"] = str(Globals.points)
+			print(Globals.PLAYER_INFO)
 		elif Globals.currentGameType == Globals.GAME_TYPE.COLLABORATIVE:
 			# Go To End Game Scene
 			Globals.changeGameState(Globals.GAME_TYPE.END)
@@ -192,6 +194,8 @@ func _on_GameTimer_timeout() -> void:
 			Globals.changeScene((Globals.endGameScene))
 			# Send End Event
 			Network.sendData("END_C")
+			Globals.PLAYER_INFO[get_tree().get_network_unique_id()]["CScore"] = str(Globals.points)
+			print(Globals.PLAYER_INFO)
 	else:
 		# COLLAB FIRST
 		if Globals.currentGameType == Globals.GAME_TYPE.COLLABORATIVE:
@@ -201,6 +205,8 @@ func _on_GameTimer_timeout() -> void:
 			Globals.changeScene(Globals.breakScreenScene)
 			# Send event
 			Network.sendData("END_C")
+			Globals.PLAYER_INFO[get_tree().get_network_unique_id()]["CScore"] = str(Globals.points)
+			print(Globals.PLAYER_INFO)
 		elif Globals.currentGameType == Globals.GAME_TYPE.INDIVIDUAL:
 			# Go To End Game Scene
 			Globals.changeGameState(Globals.GAME_TYPE.END)
@@ -208,6 +214,8 @@ func _on_GameTimer_timeout() -> void:
 			Globals.changeScene((Globals.endGameScene))
 			# Send End Event
 			Network.sendData("END_I")
+			Globals.PLAYER_INFO[get_tree().get_network_unique_id()]["IScore"] = str(Globals.points)
+			print(Globals.PLAYER_INFO)
 
 func _on_SyncTimer_timeout() -> void:
 	# Sync game time
