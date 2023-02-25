@@ -161,7 +161,7 @@ func _input(event):
 		else:
 			if Globals.currentGameControl == Globals.GAME_CONTROL.MOVE_ONLY or Globals.currentGameControl == Globals.GAME_CONTROL.NORMAL:
 				rpc("move_left")
-	if Input.is_action_just_pressed("ui_down"):
+	if Input.is_action_pressed("ui_down"):
 		if Globals.currentGameType == Globals.GAME_TYPE.INDIVIDUAL:
 			userInputMoveDown()
 		else:
