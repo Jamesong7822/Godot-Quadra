@@ -65,6 +65,7 @@ func initializeGameVariables() -> void:
 	numTimesClearBoard = 0
 	inactive.clear()
 	inactive_blocks.clear()
+	emit_signal("update_points")
 	
 func changeScene(scene):
 	rpc("syncScene", scene)
