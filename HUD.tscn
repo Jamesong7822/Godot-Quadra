@@ -17,9 +17,6 @@ font_data = ExtResource( 4 )
 anchor_right = 1.0
 anchor_bottom = 1.0
 margin_bottom = -1720.0
-__meta__ = {
-"_edit_use_anchors_": false
-}
 
 [node name="HBoxContainer" type="HBoxContainer" parent="."]
 anchor_right = 1.0
