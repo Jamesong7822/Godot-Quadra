@@ -59,9 +59,18 @@ size_flags_horizontal = 3
 size_flags_vertical = 3
 custom_constants/separation = 128
 
-[node name="LineEdit" type="LineEdit" parent="MarginContainer/CenterContainer/VBoxContainer"]
+[node name="SubjectIDInput" type="LineEdit" parent="MarginContainer/CenterContainer/VBoxContainer"]
 margin_right = 563.0
 margin_bottom = 86.0
+custom_fonts/font = ExtResource( 3 )
+align = 1
+expand_to_text_length = true
+placeholder_text = "Key In Subject ID"
+
+[node name="IPAddressInput" type="LineEdit" parent="MarginContainer/CenterContainer/VBoxContainer"]
+margin_top = 214.0
+margin_right = 563.0
+margin_bottom = 300.0
 rect_min_size = Vector2( 550, 0 )
 size_flags_horizontal = 3
 size_flags_vertical = 3
@@ -71,9 +80,9 @@ expand_to_text_length = true
 placeholder_text = "Key In IP Address"
 
 [node name="VBoxContainer" type="VBoxContainer" parent="MarginContainer/CenterContainer/VBoxContainer"]
-margin_top = 214.0
+margin_top = 428.0
 margin_right = 563.0
-margin_bottom = 382.0
+margin_bottom = 596.0
 size_flags_horizontal = 3
 size_flags_vertical = 3
 
@@ -97,15 +106,15 @@ text = "Join Server"
 [node name="PlayerList" parent="MarginContainer/CenterContainer/VBoxContainer" instance=ExtResource( 6 )]
 anchor_right = 0.0
 anchor_bottom = 0.0
-margin_top = 510.0
+margin_top = 724.0
 margin_right = 563.0
-margin_bottom = 910.0
+margin_bottom = 1124.0
 rect_min_size = Vector2( 0, 400 )
 
 [node name="SelectGameModeButton" type="Button" parent="MarginContainer/CenterContainer/VBoxContainer"]
 margin_top = 1038.0
 margin_right = 563.0
-margin_bottom = 1120.0
+margin_bottom = 1334.0
 custom_fonts/font = ExtResource( 3 )
 disabled = true
 toggle_mode = true

@@ -10,6 +10,8 @@ enum GAME_MODE {INDIVIDUAL_FIRST, COLLABORATIVE_FIRST}
 enum GAME_TYPE {INDIVIDUAL, BREAK, COLLABORATIVE, END}
 enum GAME_CONTROL {NORMAL, MOVE_ONLY, ROTATE_ONLY}
 
+var PLAYER_INFO ={}
+
 signal inact_shape
 signal update_points
 signal gameCtrlUpdate
