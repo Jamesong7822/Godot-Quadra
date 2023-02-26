@@ -1,0 +1,250 @@
+[gd_scene load_steps=8 format=2]
+
+[ext_resource path="res://assets/Resources/BG.tres" type="StyleBox" id=1]
+[ext_resource path="res://assets/Resources/BG_Overlay.tres" type="StyleBox" id=2]
+[ext_resource path="res://assets/Font Resources/ButtonFont.tres" type="DynamicFont" id=3]
+[ext_resource path="res://assets/Icons/scrollVertical.png" type="Texture" id=4]
+[ext_resource path="res://assets/Font Resources/Title_Font.tres" type="DynamicFont" id=5]
+[ext_resource path="res://scripts/Settings.gd" type="Script" id=6]
+
+[sub_resource type="Theme" id=1]
+default_font = ExtResource( 3 )
+SpinBox/icons/updown = ExtResource( 4 )
+
+[node name="Settings" type="Control"]
+anchor_right = 1.0
+anchor_bottom = 1.0
+script = ExtResource( 6 )
+
+[node name="Panel" type="Panel" parent="."]
+anchor_right = 1.0
+anchor_bottom = 1.0
+custom_styles/panel = ExtResource( 1 )
+
+[node name="Label" type="Label" parent="."]
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+size_flags_horizontal = 5
+size_flags_vertical = 7
+custom_fonts/font = ExtResource( 5 )
+text = "Settings"
+align = 1
+autowrap = true
+
+[node name="MarginContainer" type="MarginContainer" parent="."]
+anchor_right = 1.0
+anchor_bottom = 1.0
+custom_constants/margin_right = 100
+custom_constants/margin_top = 200
+custom_constants/margin_left = 100
+custom_constants/margin_bottom = 200
+
+[node name="Panel" type="Panel" parent="MarginContainer"]
+margin_left = 100.0
+margin_top = 200.0
+margin_right = 980.0
+margin_bottom = 1830.0
+custom_styles/panel = ExtResource( 2 )
+
+[node name="MarginContainer" type="MarginContainer" parent="MarginContainer"]
+margin_left = 100.0
+margin_top = 200.0
+margin_right = 980.0
+margin_bottom = 1830.0
+custom_constants/margin_right = 25
+custom_constants/margin_top = 25
+custom_constants/margin_left = 25
+custom_constants/margin_bottom = 25
+
+[node name="VBoxContainer" type="VBoxContainer" parent="MarginContainer/MarginContainer"]
+margin_left = 25.0
+margin_top = 25.0
+margin_right = 855.0
+margin_bottom = 1605.0
+custom_constants/separation = 80
+
+[node name="GridContainer" type="GridContainer" parent="MarginContainer/MarginContainer/VBoxContainer"]
+margin_right = 830.0
+margin_bottom = 932.0
+custom_constants/vseparation = 25
+custom_constants/hseparation = 25
+columns = 2
+
+[node name="PenaltyScoreLabel" type="Label" parent="MarginContainer/MarginContainer/VBoxContainer/GridContainer"]
+margin_top = 5.0
+margin_right = 460.0
+margin_bottom = 81.0
+custom_fonts/font = ExtResource( 3 )
+text = "Penalty Score: "
+
+[node name="PenaltyScore" type="SpinBox" parent="MarginContainer/MarginContainer/VBoxContainer/GridContainer"]
+margin_left = 485.0
+margin_right = 830.0
+margin_bottom = 86.0
+size_flags_horizontal = 3
+theme = SubResource( 1 )
+max_value = 9999.0
+align = 1
+
+[node name="Combo-1Row" type="Label" parent="MarginContainer/MarginContainer/VBoxContainer/GridContainer"]
+margin_top = 116.0
+margin_right = 460.0
+margin_bottom = 192.0
+custom_fonts/font = ExtResource( 3 )
+text = "Combo (1 Row):"
+
+[node name="ComboScore-Row1" type="SpinBox" parent="MarginContainer/MarginContainer/VBoxContainer/GridContainer"]
+margin_left = 485.0
+margin_top = 111.0
+margin_right = 830.0
+margin_bottom = 197.0
+size_flags_horizontal = 3
+theme = SubResource( 1 )
+max_value = 9999.0
+align = 1
+
+[node name="Combo-2Row" type="Label" parent="MarginContainer/MarginContainer/VBoxContainer/GridContainer"]
+margin_top = 227.0
+margin_right = 460.0
+margin_bottom = 303.0
+custom_fonts/font = ExtResource( 3 )
+text = "Combo (2 Row):"
+
+[node name="ComboScore-Row2" type="SpinBox" parent="MarginContainer/MarginContainer/VBoxContainer/GridContainer"]
+margin_left = 485.0
+margin_top = 222.0
+margin_right = 830.0
+margin_bottom = 308.0
+size_flags_horizontal = 3
+theme = SubResource( 1 )
+max_value = 9999.0
+align = 1
+
+[node name="Combo-3Row" type="Label" parent="MarginContainer/MarginContainer/VBoxContainer/GridContainer"]
+margin_top = 338.0
+margin_right = 460.0
+margin_bottom = 414.0
+custom_fonts/font = ExtResource( 3 )
+text = "Combo (3 Row):"
+
+[node name="ComboScore-Row3" type="SpinBox" parent="MarginContainer/MarginContainer/VBoxContainer/GridContainer"]
+margin_left = 485.0
+margin_top = 333.0
+margin_right = 830.0
+margin_bottom = 419.0
+size_flags_horizontal = 3
+theme = SubResource( 1 )
+max_value = 9999.0
+align = 1
+
+[node name="Combo-4Row" type="Label" parent="MarginContainer/MarginContainer/VBoxContainer/GridContainer"]
+margin_top = 449.0
+margin_right = 460.0
+margin_bottom = 525.0
+custom_fonts/font = ExtResource( 3 )
+text = "Combo (4 Row):"
+
+[node name="ComboScore-Row4" type="SpinBox" parent="MarginContainer/MarginContainer/VBoxContainer/GridContainer"]
+margin_left = 485.0
+margin_top = 444.0
+margin_right = 830.0
+margin_bottom = 530.0
+size_flags_horizontal = 3
+theme = SubResource( 1 )
+max_value = 9999.0
+align = 1
+
+[node name="GameTimeLabel" type="Label" parent="MarginContainer/MarginContainer/VBoxContainer/GridContainer"]
+margin_top = 560.0
+margin_right = 460.0
+margin_bottom = 636.0
+custom_fonts/font = ExtResource( 3 )
+text = "Game Time (s):"
+
+[node name="GameTime" type="SpinBox" parent="MarginContainer/MarginContainer/VBoxContainer/GridContainer"]
+margin_left = 485.0
+margin_top = 555.0
+margin_right = 830.0
+margin_bottom = 641.0
+size_flags_horizontal = 3
+theme = SubResource( 1 )
+max_value = 9999.0
+align = 1
+
+[node name="BreakTimeLabel" type="Label" parent="MarginContainer/MarginContainer/VBoxContainer/GridContainer"]
+margin_top = 671.0
+margin_right = 460.0
+margin_bottom = 747.0
+custom_fonts/font = ExtResource( 3 )
+text = "Break Time (s):"
+
+[node name="BreakTime" type="SpinBox" parent="MarginContainer/MarginContainer/VBoxContainer/GridContainer"]
+margin_left = 485.0
+margin_top = 666.0
+margin_right = 830.0
+margin_bottom = 752.0
+size_flags_horizontal = 3
+theme = SubResource( 1 )
+max_value = 9999.0
+align = 1
+
+[node name="InstructionsTimeLabel" type="Label" parent="MarginContainer/MarginContainer/VBoxContainer/GridContainer"]
+margin_top = 777.0
+margin_right = 460.0
+margin_bottom = 932.0
+custom_fonts/font = ExtResource( 3 )
+text = "Instructions Time (s):"
+autowrap = true
+
+[node name="InstructionsTime" type="SpinBox" parent="MarginContainer/MarginContainer/VBoxContainer/GridContainer"]
+margin_left = 485.0
+margin_top = 777.0
+margin_right = 830.0
+margin_bottom = 932.0
+size_flags_horizontal = 3
+theme = SubResource( 1 )
+max_value = 9999.0
+align = 1
+
+[node name="ResetToDefaultBtn" type="Button" parent="MarginContainer/MarginContainer/VBoxContainer"]
+margin_top = 1012.0
+margin_right = 830.0
+margin_bottom = 1094.0
+custom_fonts/font = ExtResource( 3 )
+text = "Reset To Default"
+
+[node name="SaveSettingsBtn" type="Button" parent="MarginContainer/MarginContainer/VBoxContainer"]
+margin_top = 1174.0
+margin_right = 830.0
+margin_bottom = 1256.0
+custom_fonts/font = ExtResource( 3 )
+text = "Save Current Settings"
+
+[node name="SetToDebugSettingsBtn" type="Button" parent="MarginContainer/MarginContainer/VBoxContainer"]
+margin_top = 1336.0
+margin_right = 830.0
+margin_bottom = 1418.0
+custom_fonts/font = ExtResource( 3 )
+text = "Set To Debug Settings"
+
+[node name="BackToMenu" type="Button" parent="MarginContainer/MarginContainer/VBoxContainer"]
+margin_top = 1498.0
+margin_right = 830.0
+margin_bottom = 1580.0
+custom_fonts/font = ExtResource( 3 )
+text = "Back To Menu"
+
+[connection signal="value_changed" from="MarginContainer/MarginContainer/VBoxContainer/GridContainer/PenaltyScore" to="." method="updateSettings"]
+[connection signal="value_changed" from="MarginContainer/MarginContainer/VBoxContainer/GridContainer/ComboScore-Row1" to="." method="updateSettings"]
+[connection signal="value_changed" from="MarginContainer/MarginContainer/VBoxContainer/GridContainer/ComboScore-Row2" to="." method="updateSettings"]
+[connection signal="value_changed" from="MarginContainer/MarginContainer/VBoxContainer/GridContainer/ComboScore-Row3" to="." method="updateSettings"]
+[connection signal="value_changed" from="MarginContainer/MarginContainer/VBoxContainer/GridContainer/ComboScore-Row4" to="." method="updateSettings"]
+[connection signal="value_changed" from="MarginContainer/MarginContainer/VBoxContainer/GridContainer/GameTime" to="." method="updateSettings"]
+[connection signal="value_changed" from="MarginContainer/MarginContainer/VBoxContainer/GridContainer/BreakTime" to="." method="updateSettings"]
+[connection signal="value_changed" from="MarginContainer/MarginContainer/VBoxContainer/GridContainer/InstructionsTime" to="." method="updateSettings"]
+[connection signal="pressed" from="MarginContainer/MarginContainer/VBoxContainer/ResetToDefaultBtn" to="." method="setToDefaultSettings"]
+[connection signal="pressed" from="MarginContainer/MarginContainer/VBoxContainer/SaveSettingsBtn" to="." method="saveSettings"]
+[connection signal="pressed" from="MarginContainer/MarginContainer/VBoxContainer/SetToDebugSettingsBtn" to="." method="setToDebugSettings"]
+[connection signal="pressed" from="MarginContainer/MarginContainer/VBoxContainer/BackToMenu" to="." method="_on_BackToMenu_pressed"]

@@ -2,7 +2,7 @@ extends Control
 
 func _ready() -> void:
 	# Set the timer
-	$BreakTimer.wait_time = Globals.BREAK_TIME
+	$BreakTimer.wait_time = Globals.breakTime
 	$BreakTimer.start()
 	
 	

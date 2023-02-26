@@ -94,7 +94,7 @@ remotesync func startGame() -> void:
 	# Sync the game timer to server
 	# Start game timer
 	if get_tree().is_network_server():
-		$GameTimer.wait_time = Globals.GAME_TIME
+		$GameTimer.wait_time = Globals.gameTime
 		$GameTimer.start()
 	
 	# Send Event Signal
