@@ -1,13 +1,20 @@
 extends Control
 
 func _ready():
+	createDirIfRequired()
 	if get_tree().is_network_server():
 		saveUserData(Globals.PLAYER_INFO)
+
+func createDirIfRequired() -> void:
+	var dir = Directory.new()
+	if not dir.dir_exists(Globals.GAME_LOG_DIR):
+		print("%s does not exist. Creating!" % Globals.GAME_LOG_DIR)
+		dir.make_dir(Globals.GAME_LOG_DIR)
 
 func saveUserData(dict):
 	var date = Time.get_date_string_from_system()
 	var time = OS.get_time()
-	var filename = "%s - %s:%s:%s.txt" % [date, str(time.hour), str(time.minute), str(time.second)]
+	var filename = "%s/%s %s_%s_%s.txt" % [Globals.GAME_LOG_DIR, date, str(time.hour), str(time.minute), str(time.second)]
 	var saveHandle = File.new()
 	saveHandle.open(filename, File.WRITE)
 	var csv = []
