@@ -104,4 +104,5 @@ custom_fonts/font = ExtResource( 1 )
 text = "Exit"
 
 [connection signal="pressed" from="MarginContainer/CenterContainer/ButtonContainer/StartGameButton" to="." method="_on_StartGameButton_pressed"]
+[connection signal="pressed" from="MarginContainer/CenterContainer/ButtonContainer/SettingsButton" to="." method="_on_SettingsButton_pressed"]
 [connection signal="pressed" from="MarginContainer/CenterContainer/ButtonContainer/ExitButton" to="." method="_on_ExitButton_pressed"]

@@ -4,7 +4,7 @@ signal finished
 
 func _ready() -> void:
 	show()
-	$Timer.wait_time = Globals.INSTRUCTIONS_TIME
+	$Timer.wait_time = Globals.instructionsTime
 	$Timer.start()
 	
 func _process(delta: float) -> void:

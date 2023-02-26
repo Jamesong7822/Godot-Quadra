@@ -66,6 +66,9 @@ func _on_StartGameButton_pressed() -> void:
 	print(Globals.PLAYER_INFO)
 	
 remotesync func startGame() -> void:
+	# sync settings
+	var settings = Globals.getGameSettings()
+	Globals.rpc("syncGameSettings", settings)
 	get_tree().change_scene_to(gameScene)
 	
 remotesync func register_player(info):
