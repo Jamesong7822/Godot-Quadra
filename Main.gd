@@ -9,10 +9,13 @@ onready var shape6=preload("res://Shape6.tscn")
 onready var shape7=preload("res://Shape7.tscn")
 var shapes=[]
 var sh
+var colours = [Color.gold, Color.royalblue, Color.indianred, Color.yellowgreen, Color.darkorange, Color.darkturquoise, Color.orchid]
 var active_block=false
 var rnd=RandomNumberGenerator.new()
 var num:int=-1
 var next_num:int=0
+var colorNum:int=-1
+var nextColorNum:int=0
 var counter:int=0
 
 func _ready():
@@ -61,12 +64,14 @@ func _on_Timer_timeout():
 	if not active_block:
 		num=rnd.randi()%7 if num==-1 else next_num
 		next_num=rnd.randi()%7
+		colorNum = rnd.randi()%7 if num ==-1 else nextColorNum
+		nextColorNum = rnd.randi()%7
 		if Globals.currentGameType == Globals.GAME_TYPE.COLLABORATIVE and get_tree().is_network_server():
-			rpc("spawnBlock", num, next_num, counter)
+			rpc("spawnBlock", num, next_num, colorNum, nextColorNum, counter)
 		elif Globals.currentGameType == Globals.GAME_TYPE.INDIVIDUAL:
-			spawnBlock(num, next_num, counter)
+			spawnBlock(num, next_num, colorNum,nextColorNum, counter)
 		counter += 1
-		
+		$CanvasLayer/HUD/HBoxContainer/NextShapePanel/VBoxContainer/Control/Sprite.visible = true
 	else:
 		if Globals.currentGameType == Globals.GAME_TYPE.COLLABORATIVE and get_tree().is_network_server():
 			rpc("move_down")
@@ -110,14 +115,16 @@ remote func syncGameTimer(gameTime) -> void:
 		$GameTimer.wait_time = gameTime
 		$GameTimer.start()
 		
-remotesync func spawnBlock(num, next_num, counter) -> void:
+remotesync func spawnBlock(num, next_num, colorNum, nextColorNum, counter) -> void:
 	if Globals.currentGameType != Globals.GAME_TYPE.INDIVIDUAL and Globals.currentGameType != Globals.GAME_TYPE.COLLABORATIVE:
 		return
 	$CanvasLayer/HUD/HBoxContainer/NextShapePanel/VBoxContainer/Control/Sprite.frame=next_num
+	$CanvasLayer/HUD/HBoxContainer/NextShapePanel/VBoxContainer/Control/Sprite.modulate = colours[nextColorNum]
 	sh=shapes[num].instance()
 	sh.name = "Shape%s" %str(counter)
 	$ShapesArea.add_child(sh)
 	sh.position=Vector2(320,80)
+	sh.modulate = colours[colorNum]
 	active_block=true
 	$Timer.start()
 

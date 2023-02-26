@@ -1,6 +1,6 @@
 extends Node
 
-const GAME_TIME:float =0.1*60.0 #15.0	# seconds
+const GAME_TIME:float =1*60.0 #15.0	# seconds
 const BREAK_TIME:float = 0.1*60.0 # 5.0	# seconds
 const INSTRUCTIONS_TIME:float = 10.0 # seconds
 
