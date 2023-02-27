@@ -45,14 +45,14 @@ custom_constants/margin_bottom = 200
 margin_left = 100.0
 margin_top = 200.0
 margin_right = 980.0
-margin_bottom = 1830.0
+margin_bottom = 1720.0
 custom_styles/panel = ExtResource( 2 )
 
 [node name="MarginContainer" type="MarginContainer" parent="MarginContainer"]
 margin_left = 100.0
 margin_top = 200.0
 margin_right = 980.0
-margin_bottom = 1830.0
+margin_bottom = 1720.0
 custom_constants/margin_right = 25
 custom_constants/margin_top = 25
 custom_constants/margin_left = 25
@@ -62,12 +62,12 @@ custom_constants/margin_bottom = 25
 margin_left = 25.0
 margin_top = 25.0
 margin_right = 855.0
-margin_bottom = 1605.0
+margin_bottom = 1495.0
 custom_constants/separation = 80
 
 [node name="GridContainer" type="GridContainer" parent="MarginContainer/MarginContainer/VBoxContainer"]
 margin_right = 830.0
-margin_bottom = 932.0
+margin_bottom = 821.0
 custom_constants/vseparation = 25
 custom_constants/hseparation = 25
 columns = 2
@@ -173,66 +173,49 @@ theme = SubResource( 1 )
 max_value = 9999.0
 align = 1
 
-[node name="BreakTimeLabel" type="Label" parent="MarginContainer/MarginContainer/VBoxContainer/GridContainer"]
-margin_top = 671.0
-margin_right = 460.0
-margin_bottom = 747.0
-custom_fonts/font = ExtResource( 3 )
-text = "Break Time (s):"
-
-[node name="BreakTime" type="SpinBox" parent="MarginContainer/MarginContainer/VBoxContainer/GridContainer"]
-margin_left = 485.0
-margin_top = 666.0
-margin_right = 830.0
-margin_bottom = 752.0
-size_flags_horizontal = 3
-theme = SubResource( 1 )
-max_value = 9999.0
-align = 1
-
 [node name="InstructionsTimeLabel" type="Label" parent="MarginContainer/MarginContainer/VBoxContainer/GridContainer"]
-margin_top = 777.0
+margin_top = 666.0
 margin_right = 460.0
-margin_bottom = 932.0
+margin_bottom = 821.0
 custom_fonts/font = ExtResource( 3 )
 text = "Instructions Time (s):"
 autowrap = true
 
 [node name="InstructionsTime" type="SpinBox" parent="MarginContainer/MarginContainer/VBoxContainer/GridContainer"]
 margin_left = 485.0
-margin_top = 777.0
+margin_top = 666.0
 margin_right = 830.0
-margin_bottom = 932.0
+margin_bottom = 821.0
 size_flags_horizontal = 3
 theme = SubResource( 1 )
 max_value = 9999.0
 align = 1
 
 [node name="ResetToDefaultBtn" type="Button" parent="MarginContainer/MarginContainer/VBoxContainer"]
-margin_top = 1012.0
+margin_top = 901.0
 margin_right = 830.0
-margin_bottom = 1094.0
+margin_bottom = 983.0
 custom_fonts/font = ExtResource( 3 )
 text = "Reset To Default"
 
 [node name="SaveSettingsBtn" type="Button" parent="MarginContainer/MarginContainer/VBoxContainer"]
-margin_top = 1174.0
+margin_top = 1063.0
 margin_right = 830.0
-margin_bottom = 1256.0
+margin_bottom = 1145.0
 custom_fonts/font = ExtResource( 3 )
 text = "Save Current Settings"
 
 [node name="SetToDebugSettingsBtn" type="Button" parent="MarginContainer/MarginContainer/VBoxContainer"]
-margin_top = 1336.0
+margin_top = 1225.0
 margin_right = 830.0
-margin_bottom = 1418.0
+margin_bottom = 1307.0
 custom_fonts/font = ExtResource( 3 )
 text = "Set To Debug Settings"
 
 [node name="BackToMenu" type="Button" parent="MarginContainer/MarginContainer/VBoxContainer"]
-margin_top = 1498.0
+margin_top = 1387.0
 margin_right = 830.0
-margin_bottom = 1580.0
+margin_bottom = 1469.0
 custom_fonts/font = ExtResource( 3 )
 text = "Back To Menu"
 
@@ -242,7 +225,6 @@ text = "Back To Menu"
 [connection signal="value_changed" from="MarginContainer/MarginContainer/VBoxContainer/GridContainer/ComboScore-Row3" to="." method="updateSettings"]
 [connection signal="value_changed" from="MarginContainer/MarginContainer/VBoxContainer/GridContainer/ComboScore-Row4" to="." method="updateSettings"]
 [connection signal="value_changed" from="MarginContainer/MarginContainer/VBoxContainer/GridContainer/GameTime" to="." method="updateSettings"]
-[connection signal="value_changed" from="MarginContainer/MarginContainer/VBoxContainer/GridContainer/BreakTime" to="." method="updateSettings"]
 [connection signal="value_changed" from="MarginContainer/MarginContainer/VBoxContainer/GridContainer/InstructionsTime" to="." method="updateSettings"]
 [connection signal="pressed" from="MarginContainer/MarginContainer/VBoxContainer/ResetToDefaultBtn" to="." method="setToDefaultSettings"]
 [connection signal="pressed" from="MarginContainer/MarginContainer/VBoxContainer/SaveSettingsBtn" to="." method="saveSettings"]
