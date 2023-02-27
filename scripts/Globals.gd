@@ -69,6 +69,7 @@ var breakScreenScene = "res://BreakScreen.tscn"
 var gameScene = "res://Main.tscn"
 var endGameScene = "res://GameOverScreen.tscn"
 var settingsScene = "res://Settings.tscn"
+var comboDisplayScene = "res://ComboDisplay.tscn"
 
 func _ready() -> void:
 	connect("clearRow", self, "_onClearRow")
@@ -91,6 +92,9 @@ func add_points(rowsCleared:int):
 	if points%100==0 and speed>.3:
 		speed-=.1
 	emit_signal("update_points")
+	var a = load(comboDisplayScene).instance()
+	a.setCombo(rowsCleared)
+	get_tree().get_root().get_node("Main/CanvasLayer").add_child(a)
 	
 remotesync func clearBoard() -> void:
 	print("CLEARING BOARD")
