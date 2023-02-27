@@ -32,6 +32,7 @@ func getIPAddress() -> void:
 	ipAddress = addresses[0]
 	
 func reset() -> void:
+	print("Resetting Network")
 	if server:
 		server.close_connection()
 	server = null

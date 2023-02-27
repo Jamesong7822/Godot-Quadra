@@ -97,4 +97,4 @@ func saveSettings() -> void:
 
 func _on_BackToMenu_pressed() -> void:
 	hide()
-	get_tree().change_scene(Globals.mainMenuScene)
+	get_tree().change_scene_to(Globals.mainMenuPreloadedScene)

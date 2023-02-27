@@ -29,5 +29,5 @@ func saveUserData(dict):
 	saveHandle.close()
 
 func _on_BackToMenuButton_pressed() -> void:
-	Globals.changeScene(Globals.mainMenuScene)
+	get_tree().change_scene_to(Globals.mainMenuPreloadedScene)
 	Network.reset()

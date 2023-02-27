@@ -71,6 +71,9 @@ var endGameScene = "res://GameOverScreen.tscn"
 var settingsScene = "res://Settings.tscn"
 var comboDisplayScene = "res://ComboDisplay.tscn"
 
+var mainMenuPreloadedScene = preload("res://MainMenu.tscn")
+var lobbyPreloadedScene = preload("res://Lobby.tscn")
+
 func _ready() -> void:
 	connect("clearRow", self, "_onClearRow")
 	connect("resetComboCount", self, "_onResetComboCount")
