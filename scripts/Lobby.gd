@@ -62,13 +62,13 @@ func _on_StartGameButton_pressed() -> void:
 	if not get_tree().is_network_server():
 		return
 	print("Server Start Game")
+	# sync settings
+	var settings = Globals.getGameSettings()
+	Globals.rpc("syncGameSettings", settings)
 	rpc("startGame")
 	print(Globals.PLAYER_INFO)
 	
 remotesync func startGame() -> void:
-	# sync settings
-	var settings = Globals.getGameSettings()
-	Globals.rpc("syncGameSettings", settings)
 	get_tree().change_scene_to(gameScene)
 	
 remotesync func register_player(info):
