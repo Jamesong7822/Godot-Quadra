@@ -1,6 +1,9 @@
 extends Control
 
 func _ready():
+	# give enuff time for the rpc for send sever game score
+	# to work which is called by client
+	yield(get_tree(), "idle_frame")
 	createDirIfRequired()
 	if get_tree().is_network_server():
 		saveUserData(Globals.PLAYER_INFO)

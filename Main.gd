@@ -193,6 +193,13 @@ func _on_GameTimer_timeout() -> void:
 			# Send event
 			Network.sendData("END_I")
 			Globals.PLAYER_INFO[get_tree().get_network_unique_id()]["IScore"] = str(Globals.points)
+			Globals.PLAYER_INFO[get_tree().get_network_unique_id()]["INumRowsCleared"] = str(Globals.numRowsCleared)
+			Globals.PLAYER_INFO[get_tree().get_network_unique_id()]["INumCombo1"] = str(Globals.numCombo1)
+			Globals.PLAYER_INFO[get_tree().get_network_unique_id()]["INumCombo2"] = str(Globals.numCombo2)
+			Globals.PLAYER_INFO[get_tree().get_network_unique_id()]["INumCombo3"] = str(Globals.numCombo3)
+			Globals.PLAYER_INFO[get_tree().get_network_unique_id()]["INumCombo4"] = str(Globals.numCombo4)
+			Globals.PLAYER_INFO[get_tree().get_network_unique_id()]["INumTimesDied"] = str(Globals.numTimesClearBoard)
+			
 			print(Globals.PLAYER_INFO)
 		elif Globals.currentGameType == Globals.GAME_TYPE.COLLABORATIVE:
 			# Go To End Game Scene
@@ -202,7 +209,16 @@ func _on_GameTimer_timeout() -> void:
 			# Send End Event
 			Network.sendData("END_C")
 			Globals.PLAYER_INFO[get_tree().get_network_unique_id()]["CScore"] = str(Globals.points)
+			Globals.PLAYER_INFO[get_tree().get_network_unique_id()]["CNumRowsCleared"] = str(Globals.numRowsCleared)
+			Globals.PLAYER_INFO[get_tree().get_network_unique_id()]["CNumCombo1"] = str(Globals.numCombo1)
+			Globals.PLAYER_INFO[get_tree().get_network_unique_id()]["CNumCombo2"] = str(Globals.numCombo2)
+			Globals.PLAYER_INFO[get_tree().get_network_unique_id()]["CNumCombo3"] = str(Globals.numCombo3)
+			Globals.PLAYER_INFO[get_tree().get_network_unique_id()]["CNumCombo4"] = str(Globals.numCombo4)
+			Globals.PLAYER_INFO[get_tree().get_network_unique_id()]["CNumTimesDied"] = str(Globals.numTimesClearBoard)
 			print(Globals.PLAYER_INFO)
+			# Client Send To Server Game Info
+			if not get_tree().is_network_server():
+				Globals.rpc("informServerMyScores", Globals.PLAYER_INFO)
 	else:
 		# COLLAB FIRST
 		if Globals.currentGameType == Globals.GAME_TYPE.COLLABORATIVE:
@@ -213,6 +229,12 @@ func _on_GameTimer_timeout() -> void:
 			# Send event
 			Network.sendData("END_C")
 			Globals.PLAYER_INFO[get_tree().get_network_unique_id()]["CScore"] = str(Globals.points)
+			Globals.PLAYER_INFO[get_tree().get_network_unique_id()]["CNumRowsCleared"] = str(Globals.numRowsCleared)
+			Globals.PLAYER_INFO[get_tree().get_network_unique_id()]["CNumCombo1"] = str(Globals.numCombo1)
+			Globals.PLAYER_INFO[get_tree().get_network_unique_id()]["CNumCombo2"] = str(Globals.numCombo2)
+			Globals.PLAYER_INFO[get_tree().get_network_unique_id()]["CNumCombo3"] = str(Globals.numCombo3)
+			Globals.PLAYER_INFO[get_tree().get_network_unique_id()]["CNumCombo4"] = str(Globals.numCombo4)
+			Globals.PLAYER_INFO[get_tree().get_network_unique_id()]["CNumTimesDied"] = str(Globals.numTimesClearBoard)
 			print(Globals.PLAYER_INFO)
 		elif Globals.currentGameType == Globals.GAME_TYPE.INDIVIDUAL:
 			# Go To End Game Scene
@@ -222,7 +244,16 @@ func _on_GameTimer_timeout() -> void:
 			# Send End Event
 			Network.sendData("END_I")
 			Globals.PLAYER_INFO[get_tree().get_network_unique_id()]["IScore"] = str(Globals.points)
+			Globals.PLAYER_INFO[get_tree().get_network_unique_id()]["INumRowsCleared"] = str(Globals.numRowsCleared)
+			Globals.PLAYER_INFO[get_tree().get_network_unique_id()]["INumCombo1"] = str(Globals.numCombo1)
+			Globals.PLAYER_INFO[get_tree().get_network_unique_id()]["INumCombo2"] = str(Globals.numCombo2)
+			Globals.PLAYER_INFO[get_tree().get_network_unique_id()]["INumCombo3"] = str(Globals.numCombo3)
+			Globals.PLAYER_INFO[get_tree().get_network_unique_id()]["INumCombo4"] = str(Globals.numCombo4)
+			Globals.PLAYER_INFO[get_tree().get_network_unique_id()]["INumTimesDied"] = str(Globals.numTimesClearBoard)
 			print(Globals.PLAYER_INFO)
+			# Client Send To Server Game Info
+			if not get_tree().is_network_server():
+				Globals.rpc("informServerMyScores", Globals.PLAYER_INFO)
 
 func _on_SyncTimer_timeout() -> void:
 	# Sync game time
