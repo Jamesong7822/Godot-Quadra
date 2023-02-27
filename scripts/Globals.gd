@@ -32,6 +32,7 @@ var combo4Score = DEFAULT_COMBO4
 var gameTime = DEFAULT_GAME_TIME
 var breakTime = DEFAULT_BREAK_TIME
 var instructionsTime = DEFAULT_INSTRUCTIONS_TIME
+var comboScores = {1: combo1Score, 2: combo2Score, 3: combo3Score, 4: combo4Score}
 
 enum GAME_MODE {INDIVIDUAL_FIRST, COLLABORATIVE_FIRST}
 enum GAME_TYPE {INDIVIDUAL, BREAK, COLLABORATIVE, END}
@@ -57,21 +58,43 @@ var currentGameMode = GAME_MODE.INDIVIDUAL_FIRST
 var currentGameType = GAME_TYPE.INDIVIDUAL
 var currentGameControl = GAME_CONTROL.NORMAL
 
+## used for combo counting
+signal clearRow
+signal resetComboCount
+var comboCount = 0
+
 # SCENES
 var mainMenuScene = "res://MainMenu.tscn"
 var breakScreenScene = "res://BreakScreen.tscn"
 var gameScene = "res://Main.tscn"
 var endGameScene = "res://GameOverScreen.tscn"
 var settingsScene = "res://Settings.tscn"
+var comboDisplayScene = "res://ComboDisplay.tscn"
+
+func _ready() -> void:
+	connect("clearRow", self, "_onClearRow")
+	connect("resetComboCount", self, "_onResetComboCount")
+	
+func _onClearRow() -> void:
+	comboCount += 1
+	
+func _onResetComboCount() -> void:
+	# Assign points
+	if comboCount != 0:
+		add_points(comboCount)
+	comboCount = 0
 
 func inactivate_shape():
 	emit_signal("inact_shape")
 
-func add_points():
-	points+=100
+func add_points(rowsCleared:int):
+	points+=comboScores[rowsCleared]
 	if points%100==0 and speed>.3:
 		speed-=.1
 	emit_signal("update_points")
+	var a = load(comboDisplayScene).instance()
+	a.setCombo(rowsCleared)
+	get_tree().get_root().get_node("Main/CanvasLayer").add_child(a)
 	
 remotesync func clearBoard() -> void:
 	print("CLEARING BOARD")
