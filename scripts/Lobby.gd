@@ -18,7 +18,22 @@ func _player_connected(id) -> void:
 	Network.clients.append(id)
 	# Called on both clients and server when a peer connects. Send my info to it.
 	var subjectIDText = $MarginContainer/CenterContainer/VBoxContainer/SubjectIDInput.text
-	var my_info = {"subject_id": subjectIDText, "IScore": 0, "CScore": 0}
+	var my_info = {"subject_id": subjectIDText, 
+				   "IScore": 0, 
+				   "CScore": 0,
+				   "INumRowsCleared": 0,
+				   "INumCombo1":0,
+				   "INumCombo2":0,
+				   "INumCombo3":0,
+				   "INumCombo4":0,
+				   "INumTimesDied": 0,
+				   "CNumRowsCleared": 0,
+				   "CNumCombo1":0,
+				   "CNumCombo2":0,
+				   "CNumCombo3":0,
+				   "CNumCombo4":0,
+				   "CNumTimesDied": 0,
+				}
 	rpc("register_player", my_info)
 	
 	
@@ -36,7 +51,22 @@ func _server_created() -> void:
 		$MarginContainer/CenterContainer/VBoxContainer/StartGameButton.disabled = false
 		_addPlayer(get_tree().get_network_unique_id())
 		var subjectIDText = $MarginContainer/CenterContainer/VBoxContainer/SubjectIDInput.text
-		var my_info = {"subject_id": subjectIDText, "IScore": 0, "CScore": 0}
+		var my_info = {"subject_id": subjectIDText, 
+					   "IScore": 0, 
+					   "CScore": 0,
+					   "INumRowsCleared": 0,
+					   "INumCombo1":0,
+					   "INumCombo2":0,
+					   "INumCombo3":0,
+					   "INumCombo4":0,
+					   "INumTimesDied": 0,
+					   "CNumRowsCleared": 0,
+					   "CNumCombo1":0,
+					   "CNumCombo2":0,
+					   "CNumCombo3":0,
+					   "CNumCombo4":0,
+					   "CNumTimesDied": 0,
+					}
 		Globals.PLAYER_INFO[get_tree().get_network_unique_id()] = my_info
 
 remote func _addPlayer(id):

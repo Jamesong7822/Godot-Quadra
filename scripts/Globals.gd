@@ -53,6 +53,11 @@ var points=0
 var speed=1
 
 var numTimesClearBoard = 0
+var numRowsCleared = 0
+var numCombo1 = 0
+var numCombo2 = 0
+var numCombo3 = 0
+var numCombo4 = 0
 
 var currentGameMode = GAME_MODE.INDIVIDUAL_FIRST
 var currentGameType = GAME_TYPE.INDIVIDUAL
@@ -98,6 +103,16 @@ func add_points(rowsCleared:int):
 	var a = load(comboDisplayScene).instance()
 	a.setCombo(rowsCleared)
 	get_tree().get_root().get_node("Main/CanvasLayer").add_child(a)
+	# update the player game data
+	if rowsCleared == 1:
+		numCombo1 += 1
+	elif rowsCleared == 2:
+		numCombo2 += 1
+	elif rowsCleared == 3:
+		numCombo3 += 1
+	elif rowsCleared == 4:
+		numCombo4 += 1
+	numRowsCleared += rowsCleared
 	
 remotesync func clearBoard() -> void:
 	print("CLEARING BOARD")
@@ -120,6 +135,11 @@ func initializeGameVariables() -> void:
 	speed=1
 	points=0
 	numTimesClearBoard = 0
+	numRowsCleared = 0
+	numCombo1 = 0
+	numCombo2 = 0
+	numCombo3 = 0
+	numCombo4 = 0
 	inactive.clear()
 	inactive_blocks.clear()
 	emit_signal("update_points")
@@ -184,3 +204,8 @@ func getGameSettings() -> Dictionary:
 	#settings["BreakTime"] = breakTime
 	settings["InstructionsTime"] = instructionsTime
 	return settings
+	
+remote func informServerMyScores(gameInfo:Dictionary) -> void:
+	print("Client Send Over Score: %s" % gameInfo)
+	var clientId = get_tree().get_rpc_sender_id()
+	PLAYER_INFO[clientId] = gameInfo[clientId]
