@@ -11,7 +11,7 @@ const DEFAULT_COMBO2:int = 100
 const DEFAULT_COMBO3:int = 300
 const DEFAULT_COMBO4:int = 1200
 const DEFAULT_GAME_TIME:float = 7 * 60.0 # seconds
-const DEFAULT_BREAK_TIME:float = 2 * 60.0 # seconds
+#const DEFAULT_BREAK_TIME:float = 2 * 60.0 # seconds
 const DEFAULT_INSTRUCTIONS_TIME:float = 10.0 # seconds
 
 # debug setings
@@ -21,7 +21,7 @@ const DEBUG_COMBO2:int = 100
 const DEBUG_COMBO3:int = 300
 const DEBUG_COMBO4:int = 1200
 const DEBUG_GAME_TIME:float = 30.0 # seconds
-const DEBUG_BREAK_TIME:float = 5.0 # seconds
+#const DEBUG_BREAK_TIME:float = 5.0 # seconds
 const DEBUG_INSTRUCTIONS_TIME:float = 1.0 # seconds
 
 var penaltyScore = DEFAULT_PENALTY_SCORE
@@ -30,7 +30,7 @@ var combo2Score = DEFAULT_COMBO2
 var combo3Score = DEFAULT_COMBO3
 var combo4Score = DEFAULT_COMBO4
 var gameTime = DEFAULT_GAME_TIME
-var breakTime = DEFAULT_BREAK_TIME
+#var breakTime = DEFAULT_BREAK_TIME
 var instructionsTime = DEFAULT_INSTRUCTIONS_TIME
 
 enum GAME_MODE {INDIVIDUAL_FIRST, COLLABORATIVE_FIRST}
@@ -144,7 +144,7 @@ remote func syncGameSettings(settings) -> void:
 	combo3Score = settings["Combo3"]
 	combo4Score = settings["Combo4"]
 	gameTime = settings["GameTime"]
-	breakTime = settings["BreakTime"]
+	#breakTime = settings["BreakTime"]
 	instructionsTime = settings["InstructionsTime"]
 	
 func getGameSettings() -> Dictionary:
@@ -155,6 +155,6 @@ func getGameSettings() -> Dictionary:
 	settings["Combo3"] = combo3Score
 	settings["Combo4"] = combo4Score
 	settings["GameTime"] = gameTime
-	settings["BreakTime"] = breakTime
+	#settings["BreakTime"] = breakTime
 	settings["InstructionsTime"] = instructionsTime
 	return settings

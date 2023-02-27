@@ -6,7 +6,7 @@ onready var combo2Score = $"MarginContainer/MarginContainer/VBoxContainer/GridCo
 onready var combo3Score = $"MarginContainer/MarginContainer/VBoxContainer/GridContainer/ComboScore-Row3"
 onready var combo4Score = $"MarginContainer/MarginContainer/VBoxContainer/GridContainer/ComboScore-Row4"
 onready var gameTime = $MarginContainer/MarginContainer/VBoxContainer/GridContainer/GameTime
-onready var breakTime = $MarginContainer/MarginContainer/VBoxContainer/GridContainer/BreakTime
+#onready var breakTime = $MarginContainer/MarginContainer/VBoxContainer/GridContainer/BreakTime
 onready var instructionsTime = $MarginContainer/MarginContainer/VBoxContainer/GridContainer/InstructionsTime
 
 func _ready() -> void:
@@ -38,7 +38,7 @@ func loadSettings() -> void:
 		combo3Score.value = settings["Combo3"]
 		combo4Score.value = settings["Combo4"]
 		gameTime.value = settings["GameTime"]
-		breakTime.value = settings["BreakTime"]
+		#breakTime.value = settings["BreakTime"]
 		instructionsTime.value = settings["InstructionsTime"]
 	else:
 		setToDefaultSettings()
@@ -52,7 +52,7 @@ func updateSettings(value_:float) -> void:
 	Globals.combo3Score = combo3Score.value
 	Globals.combo4Score = combo4Score.value
 	Globals.gameTime = gameTime.value
-	Globals.breakTime = breakTime.value
+	#Globals.breakTime = breakTime.value
 	Globals.instructionsTime = instructionsTime.value
 		
 func setToDefaultSettings() -> void:
@@ -63,7 +63,7 @@ func setToDefaultSettings() -> void:
 	combo3Score.value = Globals.DEFAULT_COMBO3
 	combo4Score.value = Globals.DEFAULT_COMBO4
 	gameTime.value = Globals.DEFAULT_GAME_TIME
-	breakTime.value = Globals.DEFAULT_BREAK_TIME
+	#breakTime.value = Globals.DEFAULT_BREAK_TIME
 	instructionsTime.value = Globals.DEFAULT_INSTRUCTIONS_TIME
 	
 func setToDebugSettings() -> void:
@@ -74,7 +74,7 @@ func setToDebugSettings() -> void:
 	combo3Score.value = Globals.DEBUG_COMBO3
 	combo4Score.value = Globals.DEBUG_COMBO4
 	gameTime.value = Globals.DEBUG_GAME_TIME
-	breakTime.value = Globals.DEBUG_BREAK_TIME
+	#breakTime.value = Globals.DEBUG_BREAK_TIME
 	instructionsTime.value = Globals.DEBUG_INSTRUCTIONS_TIME
 
 func saveSettings() -> void:
@@ -85,7 +85,7 @@ func saveSettings() -> void:
 	settings["Combo3"] = combo3Score.value
 	settings["Combo4"] = combo4Score.value
 	settings["GameTime"] = gameTime.value
-	settings["BreakTime"] = breakTime.value
+	#settings["BreakTime"] = breakTime.value
 	settings["InstructionsTime"] = instructionsTime.value
 	var filepath = "%s/config.json" % Globals.GAME_CONFIG_DIR
 	var file = File.new()
