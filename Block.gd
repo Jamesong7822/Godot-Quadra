@@ -73,12 +73,12 @@ func check_full_line():
 		shift_blocks(blocks_to_shift)
 
 func destroy_line(indexes):
-	Globals.add_points()
 	var line_vals=indexes
 	for i in range(line_vals.size()-1,-1,-1):
 		Globals.inactive.remove(line_vals[i])
 		Globals.inactive_blocks[line_vals[i]].destroy_block()
 		Globals.inactive_blocks.remove(line_vals[i])
+	Globals.emit_signal("clearRow")
 
 func shift_blocks(blocks):
 	for i in blocks:

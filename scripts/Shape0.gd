@@ -12,6 +12,16 @@ func draw_shape():
 		ch.position=rotation_matrix[rotate_position][ind]
 		ind+=1
 
+func _process(_delta: float) -> void:
+	# for combo counting
+	var count = 0
+	for ch in get_children():
+		if not ch.is_active:
+			count += 1
+	if count == get_child_count():
+		# have finish inactivating
+		Globals.emit_signal("resetComboCount")
+
 func rotate_it():
 	if not is_fixed:
 		rotate_shape()
