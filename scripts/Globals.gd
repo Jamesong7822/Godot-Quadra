@@ -46,6 +46,7 @@ var PLAYER_INFO ={}
 signal inact_shape
 signal update_points
 signal gameCtrlUpdate
+signal gameModeUpdate
 
 var inactive=[]
 var inactive_blocks=[]
@@ -128,8 +129,12 @@ remotesync func clearBoard() -> void:
 	emit_signal("update_points")
 	
 func restart_game():
+	# Call this function when going back to main menu
 	initializeGameVariables()
-	get_tree().reload_current_scene()
+	currentGameType = GAME_TYPE.INDIVIDUAL
+	currentGameMode = GAME_MODE.INDIVIDUAL_FIRST
+	currentGameControl = GAME_CONTROL.NORMAL
+	PLAYER_INFO = {}
 	
 func initializeGameVariables() -> void:
 	speed=1
@@ -160,7 +165,7 @@ func assignGameControl(gameControl):
 	rpc("updateGameControl", gameControl)
 
 remotesync func updateGameControl(gameControl):
-	print(gameControl)
+	print("Game Control: %s" % gameControl)
 	var ctrl = gameControl[get_tree().get_network_unique_id()]
 	currentGameControl = ctrl
 	emit_signal("gameCtrlUpdate")
@@ -182,6 +187,7 @@ remotesync func syncGameMode(gameMode:bool) -> void:
 		currentGameType = GAME_TYPE.COLLABORATIVE
 	else:
 		currentGameType = GAME_TYPE.INDIVIDUAL
+	emit_signal("gameModeUpdate")
 		
 remote func syncGameSettings(settings) -> void:
 	penaltyScore = settings["PenaltyScore"]
