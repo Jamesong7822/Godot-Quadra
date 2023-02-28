@@ -131,6 +131,7 @@ margin_bottom = 1531.0
 custom_fonts/font = ExtResource( 4 )
 text = "192.168.1.1"
 
+[connection signal="text_changed" from="MarginContainer/CenterContainer/VBoxContainer/SubjectIDInput" to="." method="_on_SubjectIDInput_text_changed"]
 [connection signal="pressed" from="MarginContainer/CenterContainer/VBoxContainer/VBoxContainer/CreateServerButton" to="." method="_on_CreateServerButton_pressed"]
 [connection signal="pressed" from="MarginContainer/CenterContainer/VBoxContainer/VBoxContainer/JoinServerButton" to="." method="_on_JoinServerButton_pressed"]
 [connection signal="toggled" from="MarginContainer/CenterContainer/VBoxContainer/SelectGameModeButton" to="." method="_on_SelectGameModeButton_toggled"]

@@ -10,8 +10,10 @@ func _ready() -> void:
 	Network.connect("server_created", self, "_server_created")
 	
 	$MarginContainer/CenterContainer/VBoxContainer/IPAddress.text = Network.ipAddress
-	
 	$MarginContainer/CenterContainer/VBoxContainer/StartGameButton.disabled = true
+	# set the create server / join server to disabled by default
+	$MarginContainer/CenterContainer/VBoxContainer/VBoxContainer/CreateServerButton.disabled = true
+	$MarginContainer/CenterContainer/VBoxContainer/VBoxContainer/JoinServerButton.disabled = true
 	
 func _player_connected(id) -> void:
 	print("Player %s has connected" %id)
@@ -52,6 +54,9 @@ func _connected_to_server() -> void:
 	print("Connected To Server")
 	_addPlayer(get_tree().get_network_unique_id())
 	Network.clients.append(get_tree().get_network_unique_id())
+	# we disable the create server & join server buttons
+	$MarginContainer/CenterContainer/VBoxContainer/VBoxContainer/CreateServerButton.disabled=true
+	$MarginContainer/CenterContainer/VBoxContainer/VBoxContainer/JoinServerButton.disabled=true
 	
 func _server_created() -> void:
 	if get_tree().is_network_server():
@@ -83,9 +88,11 @@ func _removePlayer(id):
 	$MarginContainer/CenterContainer/VBoxContainer/PlayerList.removePlayer(id)
 
 func _on_CreateServerButton_pressed() -> void:
-	#hide()
 	Network.createServer()
 	$MarginContainer/CenterContainer/VBoxContainer/SelectGameModeButton.disabled=false
+	# we disable the create server & join server buttons
+	$MarginContainer/CenterContainer/VBoxContainer/VBoxContainer/CreateServerButton.disabled=true
+	$MarginContainer/CenterContainer/VBoxContainer/VBoxContainer/JoinServerButton.disabled=true
 
 
 func _on_JoinServerButton_pressed() -> void:
@@ -138,3 +145,14 @@ func _onGameModeUpdate():
 		selectGameModeBtn.text = "Collaboration First"
 	else:
 		selectGameModeBtn.text = "Individual First"
+
+
+func _on_SubjectIDInput_text_changed(new_text: String) -> void:
+	if new_text == "":
+		# we want to lock the create server / join server
+		#  buttons to provide more robustness
+		$MarginContainer/CenterContainer/VBoxContainer/VBoxContainer/CreateServerButton.disabled = true
+		$MarginContainer/CenterContainer/VBoxContainer/VBoxContainer/JoinServerButton.disabled = true
+	else:
+		$MarginContainer/CenterContainer/VBoxContainer/VBoxContainer/CreateServerButton.disabled = false
+		$MarginContainer/CenterContainer/VBoxContainer/VBoxContainer/JoinServerButton.disabled = false
