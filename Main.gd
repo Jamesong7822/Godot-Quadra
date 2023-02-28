@@ -118,6 +118,7 @@ remote func syncGameTimer(gameTime) -> void:
 remotesync func spawnBlock(num, next_num, colorNum, nextColorNum, counter) -> void:
 	if Globals.currentGameType != Globals.GAME_TYPE.INDIVIDUAL and Globals.currentGameType != Globals.GAME_TYPE.COLLABORATIVE:
 		return
+	$CanvasLayer/HUD/HBoxContainer/NextShapePanel/VBoxContainer/Control/Sprite.visible = true
 	$CanvasLayer/HUD/HBoxContainer/NextShapePanel/VBoxContainer/Control/Sprite.frame=next_num
 	$CanvasLayer/HUD/HBoxContainer/NextShapePanel/VBoxContainer/Control/Sprite.modulate = colours[nextColorNum]
 	sh=shapes[num].instance()
