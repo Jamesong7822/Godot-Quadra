@@ -37,6 +37,7 @@ func reset() -> void:
 		server.close_connection()
 	server = null
 	client = null
+	clients = []
 	
 func connectToPythonServer() -> void:
 	# Start Python Server

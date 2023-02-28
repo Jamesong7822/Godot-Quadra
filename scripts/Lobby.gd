@@ -3,6 +3,7 @@ extends Control
 var gameScene = preload("res://Main.tscn")
 
 func _ready() -> void:
+	Globals.connect("gameModeUpdate", self, "_onGameModeUpdate")
 	get_tree().connect("network_peer_connected", self, "_player_connected")
 	get_tree().connect("network_peer_disconnected", self, "_player_disconnected")
 	get_tree().connect("connected_to_server", self, "_connected_to_server")
@@ -35,6 +36,12 @@ func _player_connected(id) -> void:
 				   "CNumTimesDied": 0,
 				}
 	rpc("register_player", my_info)
+	# if am server sync the game order information
+	if get_tree().is_network_server():
+		var gameOrder = false
+		if Globals.currentGameMode == Globals.GAME_MODE.COLLABORATIVE_FIRST:
+			gameOrder = true
+		Globals.rpc("syncGameMode", gameOrder)
 	
 	
 func _player_disconnected(id) -> void:
@@ -124,3 +131,10 @@ remote func syncSelectGameModeBtnState(state: bool) -> void:
 			selectGameModeBtn.text = "Collaboration First"
 		else:
 			selectGameModeBtn.text = "Individual First"
+
+func _onGameModeUpdate():
+	var selectGameModeBtn = $MarginContainer/CenterContainer/VBoxContainer/SelectGameModeButton
+	if Globals.currentGameMode == Globals.GAME_MODE.COLLABORATIVE_FIRST:
+		selectGameModeBtn.text = "Collaboration First"
+	else:
+		selectGameModeBtn.text = "Individual First"

@@ -1,5 +1,9 @@
 extends Control
 
+func _ready() -> void:
+	# make sure globals restart_game is called
+	Globals.restart_game()
+
 func _on_ExitButton_pressed() -> void:
 	Network.sendData("STOP_SERVER")
 	get_tree().quit()
