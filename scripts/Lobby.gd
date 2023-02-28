@@ -36,6 +36,7 @@ func _player_connected(id) -> void:
 				   "CNumCombo3":0,
 				   "CNumCombo4":0,
 				   "CNumTimesDied": 0,
+				   "CGameControl":"",
 				}
 	rpc("register_player", my_info)
 	# if am server sync the game order information
@@ -78,6 +79,7 @@ func _server_created() -> void:
 					   "CNumCombo3":0,
 					   "CNumCombo4":0,
 					   "CNumTimesDied": 0,
+					   "CGameControl":"",
 					}
 		Globals.PLAYER_INFO[get_tree().get_network_unique_id()] = my_info
 

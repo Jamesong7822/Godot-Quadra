@@ -216,6 +216,8 @@ func _on_GameTimer_timeout() -> void:
 			Globals.PLAYER_INFO[get_tree().get_network_unique_id()]["CNumCombo3"] = str(Globals.numCombo3)
 			Globals.PLAYER_INFO[get_tree().get_network_unique_id()]["CNumCombo4"] = str(Globals.numCombo4)
 			Globals.PLAYER_INFO[get_tree().get_network_unique_id()]["CNumTimesDied"] = str(Globals.numTimesClearBoard)
+			Globals.PLAYER_INFO[get_tree().get_network_unique_id()]["CGameControl"] = str(Globals.GAME_CONTROL.keys()[Globals.currentGameControl])
+			
 			print(Globals.PLAYER_INFO)
 			# Client Send To Server Game Info
 			if not get_tree().is_network_server():
@@ -236,6 +238,8 @@ func _on_GameTimer_timeout() -> void:
 			Globals.PLAYER_INFO[get_tree().get_network_unique_id()]["CNumCombo3"] = str(Globals.numCombo3)
 			Globals.PLAYER_INFO[get_tree().get_network_unique_id()]["CNumCombo4"] = str(Globals.numCombo4)
 			Globals.PLAYER_INFO[get_tree().get_network_unique_id()]["CNumTimesDied"] = str(Globals.numTimesClearBoard)
+			Globals.PLAYER_INFO[get_tree().get_network_unique_id()]["CGameControl"] = str(Globals.GAME_CONTROL.keys()[Globals.currentGameControl])
+			
 			print(Globals.PLAYER_INFO)
 		elif Globals.currentGameType == Globals.GAME_TYPE.INDIVIDUAL:
 			# Go To End Game Scene
@@ -251,6 +255,7 @@ func _on_GameTimer_timeout() -> void:
 			Globals.PLAYER_INFO[get_tree().get_network_unique_id()]["INumCombo3"] = str(Globals.numCombo3)
 			Globals.PLAYER_INFO[get_tree().get_network_unique_id()]["INumCombo4"] = str(Globals.numCombo4)
 			Globals.PLAYER_INFO[get_tree().get_network_unique_id()]["INumTimesDied"] = str(Globals.numTimesClearBoard)
+			
 			print(Globals.PLAYER_INFO)
 			# Client Send To Server Game Info
 			if not get_tree().is_network_server():
