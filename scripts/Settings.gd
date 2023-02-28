@@ -16,8 +16,12 @@ func _ready() -> void:
 	
 func createDirIfRequired() -> void:
 	var dir = Directory.new()
+	# Open the directory first - https://godotengine.org/qa/1288/error-on-create-directory-on-exported-game
+	dir.open(".")
 	if not dir.dir_exists(Globals.GAME_CONFIG_DIR):
-		dir.make_dir(Globals.GAME_CONFIG_DIR)
+		var err = dir.make_dir(Globals.GAME_CONFIG_DIR)
+		if err != OK:
+			print("Error Creating %s with code: %s" %[Globals.GAME_CONFIG_DIR, err])
 		
 func checkIfConfigFileExists() -> bool:
 	var dir = Directory.new()
@@ -89,11 +93,14 @@ func saveSettings() -> void:
 	settings["InstructionsTime"] = instructionsTime.value
 	var filepath = "%s/config.json" % Globals.GAME_CONFIG_DIR
 	var file = File.new()
-	file.open(filepath, File.WRITE)
-	var jsonStr = JSON.print(settings)
-	file.store_string(jsonStr)
-	file.close()
-	print("Save Settings To %s"%filepath)
+	var err = file.open(filepath, File.WRITE)
+	if err != OK:
+		print("Error Saving Settings! %s" % err)
+	else:
+		var jsonStr = JSON.print(settings)
+		file.store_string(jsonStr)
+		file.close()
+		print("Save Settings To %s"%filepath)
 
 func _on_BackToMenu_pressed() -> void:
 	hide()
