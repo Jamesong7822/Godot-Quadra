@@ -46,18 +46,11 @@ func assignGameControl() -> void:
 	if not get_tree().is_network_server():
 		return
 	if Globals.currentGameType == Globals.GAME_TYPE.COLLABORATIVE:
-		var ctrl = rnd.randi()%2
 		var ctrlDict
-		if ctrl == 0:
-			# server is movement type control, client is rotate type control
-			ctrlDict = {1:Globals.GAME_CONTROL.MOVE_ONLY}
-			if len(Network.clients):
-				ctrlDict[Network.clients[0]] = Globals.GAME_CONTROL.ROTATE_ONLY
-		else:
-			# server is rotate type control, client is movement type control
-			ctrlDict = {1:Globals.GAME_CONTROL.ROTATE_ONLY}
-			if len(Network.clients):
-				ctrlDict[Network.clients[0]] = Globals.GAME_CONTROL.MOVE_ONLY
+		# server is rotate type control, client is movement type control
+		ctrlDict = {1:Globals.GAME_CONTROL.ROTATE_ONLY}
+		if len(Network.clients):
+			ctrlDict[Network.clients[0]] = Globals.GAME_CONTROL.MOVE_ONLY
 		Globals.assignGameControl(ctrlDict)
 
 func _on_Timer_timeout():
