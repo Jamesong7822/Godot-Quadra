@@ -98,8 +98,6 @@ func inactivate_shape():
 
 func add_points(rowsCleared:int):
 	points+=comboScores[rowsCleared]
-	if points%100==0 and speed>.3:
-		speed-=.1
 	emit_signal("update_points")
 	var a = load(comboDisplayScene).instance()
 	a.setCombo(rowsCleared)
