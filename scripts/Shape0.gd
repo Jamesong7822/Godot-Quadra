@@ -12,7 +12,7 @@ func draw_shape():
 		ch.position=rotation_matrix[rotate_position][ind]
 		ind+=1
 
-func _process(_delta: float) -> void:
+func _physics_process(delta: float) -> void:
 	# for combo counting
 	var count = 0
 	for ch in get_children():
