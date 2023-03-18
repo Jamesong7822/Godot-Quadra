@@ -1,11 +1,15 @@
 [gd_scene load_steps=7 format=2]
 
-[ext_resource path="res://assets/Resources/BG.tres" type="StyleBox" id=1]
 [ext_resource path="res://assets/Font Resources/Title_Font.tres" type="DynamicFont" id=2]
-[ext_resource path="res://assets/Resources/BG_Overlay.tres" type="StyleBox" id=3]
 [ext_resource path="res://scripts/BreakScreen.gd" type="Script" id=4]
 [ext_resource path="res://assets/Font Resources/ButtonFont.tres" type="DynamicFont" id=5]
 [ext_resource path="res://assets/fast-forward.png" type="Texture" id=6]
+
+[sub_resource type="StyleBoxFlat" id=1]
+bg_color = Color( 0.0901961, 0.0901961, 0.0901961, 1 )
+
+[sub_resource type="StyleBoxFlat" id=2]
+bg_color = Color( 0, 0, 0, 1 )
 
 [node name="BreakScreen" type="Control"]
 anchor_right = 1.0
@@ -15,7 +19,7 @@ script = ExtResource( 4 )
 [node name="BG" type="Panel" parent="."]
 anchor_right = 1.0
 anchor_bottom = 1.0
-custom_styles/panel = ExtResource( 1 )
+custom_styles/panel = SubResource( 1 )
 
 [node name="MarginContainer" type="MarginContainer" parent="."]
 anchor_right = 1.0
@@ -24,16 +28,13 @@ custom_constants/margin_right = 128
 custom_constants/margin_top = 128
 custom_constants/margin_left = 128
 custom_constants/margin_bottom = 128
-__meta__ = {
-"_edit_use_anchors_": false
-}
 
 [node name="Panel" type="Panel" parent="MarginContainer"]
 margin_left = 128.0
 margin_top = 128.0
 margin_right = 952.0
 margin_bottom = 1792.0
-custom_styles/panel = ExtResource( 3 )
+custom_styles/panel = SubResource( 2 )
 
 [node name="CenterContainer" type="CenterContainer" parent="MarginContainer"]
 margin_left = 128.0
