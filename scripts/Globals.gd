@@ -148,13 +148,15 @@ func initializeGameVariables() -> void:
 	emit_signal("update_points")
 	
 func changeScene(scene):
-	rpc("syncScene", scene)
+	if get_tree().is_network_server():
+		rpc("syncScene", scene)
 	
 remotesync func syncScene(scene):
 	get_tree().change_scene(scene)
 	
 func changeGameState(newGameState):
-	rpc("updateGameState", newGameState)
+	if get_tree().is_network_server():
+		rpc("updateGameState", newGameState)
 
 remotesync func updateGameState(newGameState):
 	currentGameType = newGameState
