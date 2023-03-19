@@ -180,12 +180,7 @@ func _on_GameTimer_timeout() -> void:
 #		return
 	if Globals.currentGameMode == Globals.GAME_MODE.INDIVIDUAL_FIRST:
 		if Globals.currentGameType == Globals.GAME_TYPE.INDIVIDUAL:
-			# Go To Break
-			Globals.changeGameState(Globals.GAME_TYPE.BREAK)
-			# change scene
-			Globals.changeScene(Globals.breakScreenScene)
-			# Send event
-			Network.sendData("END_I")
+			# Save To Dictionary First
 			Globals.PLAYER_INFO[get_tree().get_network_unique_id()]["IScore"] = str(Globals.points)
 			Globals.PLAYER_INFO[get_tree().get_network_unique_id()]["INumRowsCleared"] = str(Globals.numRowsCleared)
 			Globals.PLAYER_INFO[get_tree().get_network_unique_id()]["INumCombo1"] = str(Globals.numCombo1)
@@ -195,13 +190,15 @@ func _on_GameTimer_timeout() -> void:
 			Globals.PLAYER_INFO[get_tree().get_network_unique_id()]["INumTimesDied"] = str(Globals.numTimesClearBoard)
 			
 			print(Globals.PLAYER_INFO)
-		elif Globals.currentGameType == Globals.GAME_TYPE.COLLABORATIVE:
-			# Go To End Game Scene
-			Globals.changeGameState(Globals.GAME_TYPE.END)
+			# Send event
+			Network.sendData("END_I")
+			# Go To Break
+			Globals.changeGameState(Globals.GAME_TYPE.BREAK)
 			# change scene
-			Globals.changeScene((Globals.endGameScene))
-			# Send End Event
-			Network.sendData("END_C")
+			Globals.changeScene(Globals.breakScreenScene)
+			
+		elif Globals.currentGameType == Globals.GAME_TYPE.COLLABORATIVE:
+			# Save to dictionary first
 			Globals.PLAYER_INFO[get_tree().get_network_unique_id()]["CScore"] = str(Globals.points)
 			Globals.PLAYER_INFO[get_tree().get_network_unique_id()]["CNumRowsCleared"] = str(Globals.numRowsCleared)
 			Globals.PLAYER_INFO[get_tree().get_network_unique_id()]["CNumCombo1"] = str(Globals.numCombo1)
@@ -215,15 +212,17 @@ func _on_GameTimer_timeout() -> void:
 			# Client Send To Server Game Info
 			if not get_tree().is_network_server():
 				Globals.rpc("informServerMyScores", Globals.PLAYER_INFO)
+			# Send End Event
+			Network.sendData("END_C")
+			# Go To End Game Scene
+			Globals.changeGameState(Globals.GAME_TYPE.END)
+			# change scene
+			Globals.changeScene((Globals.endGameScene))
+			
 	else:
 		# COLLAB FIRST
 		if Globals.currentGameType == Globals.GAME_TYPE.COLLABORATIVE:
-			# Go To Break
-			Globals.changeGameState(Globals.GAME_TYPE.BREAK)
-			# change scene
-			Globals.changeScene(Globals.breakScreenScene)
-			# Send event
-			Network.sendData("END_C")
+			# Save to player dict first
 			Globals.PLAYER_INFO[get_tree().get_network_unique_id()]["CScore"] = str(Globals.points)
 			Globals.PLAYER_INFO[get_tree().get_network_unique_id()]["CNumRowsCleared"] = str(Globals.numRowsCleared)
 			Globals.PLAYER_INFO[get_tree().get_network_unique_id()]["CNumCombo1"] = str(Globals.numCombo1)
@@ -234,13 +233,15 @@ func _on_GameTimer_timeout() -> void:
 			Globals.PLAYER_INFO[get_tree().get_network_unique_id()]["CGameControl"] = str(Globals.GAME_CONTROL.keys()[Globals.currentGameControl])
 			
 			print(Globals.PLAYER_INFO)
-		elif Globals.currentGameType == Globals.GAME_TYPE.INDIVIDUAL:
-			# Go To End Game Scene
-			Globals.changeGameState(Globals.GAME_TYPE.END)
+			# Send event
+			Network.sendData("END_C")
+			# Go To Break
+			Globals.changeGameState(Globals.GAME_TYPE.BREAK)
 			# change scene
-			Globals.changeScene((Globals.endGameScene))
-			# Send End Event
-			Network.sendData("END_I")
+			Globals.changeScene(Globals.breakScreenScene)
+			
+		elif Globals.currentGameType == Globals.GAME_TYPE.INDIVIDUAL:
+			# Save to player dict
 			Globals.PLAYER_INFO[get_tree().get_network_unique_id()]["IScore"] = str(Globals.points)
 			Globals.PLAYER_INFO[get_tree().get_network_unique_id()]["INumRowsCleared"] = str(Globals.numRowsCleared)
 			Globals.PLAYER_INFO[get_tree().get_network_unique_id()]["INumCombo1"] = str(Globals.numCombo1)
@@ -253,6 +254,13 @@ func _on_GameTimer_timeout() -> void:
 			# Client Send To Server Game Info
 			if not get_tree().is_network_server():
 				Globals.rpc("informServerMyScores", Globals.PLAYER_INFO)
+			
+			# Send End Event
+			Network.sendData("END_I")
+			# Go To End Game Scene
+			Globals.changeGameState(Globals.GAME_TYPE.END)
+			# change scene
+			Globals.changeScene((Globals.endGameScene))
 
 func _on_SyncTimer_timeout() -> void:
 	# Sync game time
