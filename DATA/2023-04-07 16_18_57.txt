@@ -1,0 +1,2 @@
+subject_id,IScore,CScore,INumRowsCleared,INumCombo1,INumCombo2,INumCombo3,INumCombo4,INumTimesDied,CNumRowsCleared,CNumCombo1,CNumCombo2,CNumCombo3,CNumCombo4,CNumTimesDied,CGameControl
+1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,ROTATE_ONLY
