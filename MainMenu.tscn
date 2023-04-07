@@ -61,48 +61,56 @@ margin_right = 1016.0
 margin_bottom = 1856.0
 
 [node name="ButtonContainer" type="VBoxContainer" parent="MarginContainer/CenterContainer"]
-margin_left = 345.0
-margin_top = 723.0
-margin_right = 606.0
-margin_bottom = 1069.0
+margin_left = 309.0
+margin_top = 640.0
+margin_right = 643.0
+margin_bottom = 1152.0
 __meta__ = {
 "_edit_use_anchors_": false
 }
 
 [node name="StartGameButton" type="Button" parent="MarginContainer/CenterContainer/ButtonContainer"]
-margin_right = 261.0
-margin_bottom = 66.0
+margin_right = 334.0
+margin_bottom = 82.0
 custom_fonts/font = ExtResource( 1 )
 text = "Start Game"
 
+[node name="PracticeButton" type="Button" parent="MarginContainer/CenterContainer/ButtonContainer"]
+margin_top = 86.0
+margin_right = 334.0
+margin_bottom = 168.0
+custom_fonts/font = ExtResource( 1 )
+text = "Practice"
+
 [node name="HelpButton" type="Button" parent="MarginContainer/CenterContainer/ButtonContainer"]
-margin_top = 70.0
-margin_right = 261.0
-margin_bottom = 136.0
+margin_top = 172.0
+margin_right = 334.0
+margin_bottom = 254.0
 custom_fonts/font = ExtResource( 1 )
 text = "Help"
 
 [node name="CreditsButton" type="Button" parent="MarginContainer/CenterContainer/ButtonContainer"]
-margin_top = 140.0
-margin_right = 261.0
-margin_bottom = 206.0
+margin_top = 258.0
+margin_right = 334.0
+margin_bottom = 340.0
 custom_fonts/font = ExtResource( 1 )
 text = "Credits"
 
 [node name="SettingsButton" type="Button" parent="MarginContainer/CenterContainer/ButtonContainer"]
-margin_top = 210.0
-margin_right = 261.0
-margin_bottom = 276.0
+margin_top = 344.0
+margin_right = 334.0
+margin_bottom = 426.0
 custom_fonts/font = ExtResource( 1 )
 text = "Settings"
 
 [node name="ExitButton" type="Button" parent="MarginContainer/CenterContainer/ButtonContainer"]
-margin_top = 280.0
-margin_right = 261.0
-margin_bottom = 346.0
+margin_top = 430.0
+margin_right = 334.0
+margin_bottom = 512.0
 custom_fonts/font = ExtResource( 1 )
 text = "Exit"
 
 [connection signal="pressed" from="MarginContainer/CenterContainer/ButtonContainer/StartGameButton" to="." method="_on_StartGameButton_pressed"]
+[connection signal="pressed" from="MarginContainer/CenterContainer/ButtonContainer/PracticeButton" to="." method="_on_PracticeButton_pressed"]
 [connection signal="pressed" from="MarginContainer/CenterContainer/ButtonContainer/SettingsButton" to="." method="_on_SettingsButton_pressed"]
 [connection signal="pressed" from="MarginContainer/CenterContainer/ButtonContainer/ExitButton" to="." method="_on_ExitButton_pressed"]

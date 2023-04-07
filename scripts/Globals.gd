@@ -13,6 +13,7 @@ const DEFAULT_COMBO4:int = 1200
 const DEFAULT_GAME_TIME:float = 7 * 60.0 # seconds
 #const DEFAULT_BREAK_TIME:float = 2 * 60.0 # seconds
 const DEFAULT_INSTRUCTIONS_TIME:float = 10.0 # seconds
+const DEFAULT_PRACTICE_TIME:float = 3 * 60.0 # seconds
 
 # debug setings
 const DEBUG_PENALTY_SCORE:int = 100
@@ -23,6 +24,7 @@ const DEBUG_COMBO4:int = 1200
 const DEBUG_GAME_TIME:float = 30.0 # seconds
 #const DEBUG_BREAK_TIME:float = 5.0 # seconds
 const DEBUG_INSTRUCTIONS_TIME:float = 1.0 # seconds
+const DEBUG_PRACTICE_TIME:float = 30.0 # seconds
 
 var penaltyScore = DEFAULT_PENALTY_SCORE
 var combo1Score = DEFAULT_COMBO1
@@ -32,6 +34,7 @@ var combo4Score = DEFAULT_COMBO4
 var gameTime = DEFAULT_GAME_TIME
 #var breakTime = DEFAULT_BREAK_TIME
 var instructionsTime = DEFAULT_INSTRUCTIONS_TIME
+var practiceTime = DEFAULT_PRACTICE_TIME
 var comboScores = {1: combo1Score, 2: combo2Score, 3: combo3Score, 4: combo4Score}
 
 enum GAME_MODE {INDIVIDUAL_FIRST, COLLABORATIVE_FIRST}
@@ -76,9 +79,13 @@ var gameScene = "res://Main.tscn"
 var endGameScene = "res://GameOverScreen.tscn"
 var settingsScene = "res://Settings.tscn"
 var comboDisplayScene = "res://ComboDisplay.tscn"
+var practiceGameScene = "res://PracticeGame.tscn"
 
 var mainMenuPreloadedScene = preload("res://MainMenu.tscn")
 var lobbyPreloadedScene = preload("res://Lobby.tscn")
+
+# flag to store if is practice mode
+var isPracticeMode = false
 
 func _ready() -> void:
 	connect("clearRow", self, "_onClearRow")
@@ -133,6 +140,8 @@ func restart_game():
 	currentGameMode = GAME_MODE.INDIVIDUAL_FIRST
 	currentGameControl = GAME_CONTROL.NORMAL
 	PLAYER_INFO = {}
+	# clear practice mode flag
+	isPracticeMode = false
 	
 func initializeGameVariables() -> void:
 	speed=1
@@ -198,6 +207,7 @@ remote func syncGameSettings(settings) -> void:
 	gameTime = settings["GameTime"]
 	#breakTime = settings["BreakTime"]
 	instructionsTime = settings["InstructionsTime"]
+	practiceTime = settings["PracticeTime"]
 	
 func getGameSettings() -> Dictionary:
 	var settings = {}
@@ -209,6 +219,7 @@ func getGameSettings() -> Dictionary:
 	settings["GameTime"] = gameTime
 	#settings["BreakTime"] = breakTime
 	settings["InstructionsTime"] = instructionsTime
+	settings["PracticeTime"] = practiceTime
 	return settings
 	
 remote func informServerMyScores(gameInfo:Dictionary) -> void:
