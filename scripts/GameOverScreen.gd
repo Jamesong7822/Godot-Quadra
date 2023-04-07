@@ -7,6 +7,9 @@ func _ready():
 	createDirIfRequired()
 	if get_tree().is_network_server():
 		saveUserData(Globals.PLAYER_INFO)
+	# If is practice mode we hide the watch instructions
+	if Globals.isPracticeMode:
+		$MarginContainer/VBoxContainer/WatchInstructions.hide()
 
 func createDirIfRequired() -> void:
 	var dir = Directory.new()

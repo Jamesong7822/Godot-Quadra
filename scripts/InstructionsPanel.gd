@@ -4,7 +4,9 @@ export (Array, Texture) var InstructionImages
 signal finished
 
 func _ready() -> void:
-	if Globals.currentGameType == Globals.GAME_TYPE.INDIVIDUAL:
+	if Globals.isPracticeMode:
+		texture = InstructionImages[3]
+	elif Globals.currentGameType == Globals.GAME_TYPE.INDIVIDUAL:
 		texture = InstructionImages[0]
 	elif Globals.currentGameType == Globals.GAME_TYPE.COLLABORATIVE:
 		if get_tree().is_network_server():

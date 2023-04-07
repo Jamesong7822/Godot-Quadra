@@ -8,6 +8,7 @@ onready var combo4Score = $"MarginContainer/MarginContainer/VBoxContainer/GridCo
 onready var gameTime = $MarginContainer/MarginContainer/VBoxContainer/GridContainer/GameTime
 #onready var breakTime = $MarginContainer/MarginContainer/VBoxContainer/GridContainer/BreakTime
 onready var instructionsTime = $MarginContainer/MarginContainer/VBoxContainer/GridContainer/InstructionsTime
+onready var practiceTime = $MarginContainer/MarginContainer/VBoxContainer/GridContainer/PracticeTime
 
 func _ready() -> void:
 	createDirIfRequired()
@@ -44,6 +45,7 @@ func loadSettings() -> void:
 		gameTime.value = settings["GameTime"]
 		#breakTime.value = settings["BreakTime"]
 		instructionsTime.value = settings["InstructionsTime"]
+		practiceTime.value = settings["PracticeTime"]
 	else:
 		setToDefaultSettings()
 		# save the settings
@@ -58,6 +60,7 @@ func updateSettings(value_:float) -> void:
 	Globals.gameTime = gameTime.value
 	#Globals.breakTime = breakTime.value
 	Globals.instructionsTime = instructionsTime.value
+	Globals.practiceTime = practiceTime.value
 		
 func setToDefaultSettings() -> void:
 	# use the default values in Globals
@@ -69,6 +72,7 @@ func setToDefaultSettings() -> void:
 	gameTime.value = Globals.DEFAULT_GAME_TIME
 	#breakTime.value = Globals.DEFAULT_BREAK_TIME
 	instructionsTime.value = Globals.DEFAULT_INSTRUCTIONS_TIME
+	practiceTime.value = Globals.DEFAULT_PRACTICE_TIME
 	
 func setToDebugSettings() -> void:
 	# use the default values in Globals
@@ -80,6 +84,7 @@ func setToDebugSettings() -> void:
 	gameTime.value = Globals.DEBUG_GAME_TIME
 	#breakTime.value = Globals.DEBUG_BREAK_TIME
 	instructionsTime.value = Globals.DEBUG_INSTRUCTIONS_TIME
+	practiceTime.value = Globals.DEBUG_PRACTICE_TIME
 
 func saveSettings() -> void:
 	var settings = {}
@@ -91,6 +96,7 @@ func saveSettings() -> void:
 	settings["GameTime"] = gameTime.value
 	#settings["BreakTime"] = breakTime.value
 	settings["InstructionsTime"] = instructionsTime.value
+	settings["PracticeTime"] = practiceTime.value
 	var filepath = "%s/config.json" % Globals.GAME_CONFIG_DIR
 	var file = File.new()
 	var err = file.open(filepath, File.WRITE)

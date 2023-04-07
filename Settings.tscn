@@ -45,14 +45,14 @@ custom_constants/margin_bottom = 200
 margin_left = 100.0
 margin_top = 200.0
 margin_right = 980.0
-margin_bottom = 1720.0
+margin_bottom = 1899.0
 custom_styles/panel = ExtResource( 2 )
 
 [node name="MarginContainer" type="MarginContainer" parent="MarginContainer"]
 margin_left = 100.0
 margin_top = 200.0
 margin_right = 980.0
-margin_bottom = 1720.0
+margin_bottom = 1899.0
 custom_constants/margin_right = 25
 custom_constants/margin_top = 25
 custom_constants/margin_left = 25
@@ -62,12 +62,12 @@ custom_constants/margin_bottom = 25
 margin_left = 25.0
 margin_top = 25.0
 margin_right = 855.0
-margin_bottom = 1495.0
+margin_bottom = 1674.0
 custom_constants/separation = 80
 
 [node name="GridContainer" type="GridContainer" parent="MarginContainer/MarginContainer/VBoxContainer"]
 margin_right = 830.0
-margin_bottom = 821.0
+margin_bottom = 1001.0
 custom_constants/vseparation = 25
 custom_constants/hseparation = 25
 columns = 2
@@ -191,31 +191,49 @@ theme = SubResource( 1 )
 max_value = 9999.0
 align = 1
 
-[node name="ResetToDefaultBtn" type="Button" parent="MarginContainer/MarginContainer/VBoxContainer"]
-margin_top = 901.0
+[node name="PracticeTimeLabel" type="Label" parent="MarginContainer/MarginContainer/VBoxContainer/GridContainer"]
+margin_top = 846.0
+margin_right = 460.0
+margin_bottom = 1001.0
+custom_fonts/font = ExtResource( 3 )
+text = "Practice Time (s):"
+autowrap = true
+
+[node name="PracticeTime" type="SpinBox" parent="MarginContainer/MarginContainer/VBoxContainer/GridContainer"]
+margin_left = 485.0
+margin_top = 846.0
 margin_right = 830.0
-margin_bottom = 983.0
+margin_bottom = 1001.0
+size_flags_horizontal = 3
+theme = SubResource( 1 )
+max_value = 9999.0
+align = 1
+
+[node name="ResetToDefaultBtn" type="Button" parent="MarginContainer/MarginContainer/VBoxContainer"]
+margin_top = 1081.0
+margin_right = 830.0
+margin_bottom = 1163.0
 custom_fonts/font = ExtResource( 3 )
 text = "Reset To Default"
 
 [node name="SaveSettingsBtn" type="Button" parent="MarginContainer/MarginContainer/VBoxContainer"]
-margin_top = 1063.0
+margin_top = 1243.0
 margin_right = 830.0
-margin_bottom = 1145.0
+margin_bottom = 1325.0
 custom_fonts/font = ExtResource( 3 )
 text = "Save Current Settings"
 
 [node name="SetToDebugSettingsBtn" type="Button" parent="MarginContainer/MarginContainer/VBoxContainer"]
-margin_top = 1225.0
+margin_top = 1405.0
 margin_right = 830.0
-margin_bottom = 1307.0
+margin_bottom = 1487.0
 custom_fonts/font = ExtResource( 3 )
 text = "Set To Debug Settings"
 
 [node name="BackToMenu" type="Button" parent="MarginContainer/MarginContainer/VBoxContainer"]
-margin_top = 1387.0
+margin_top = 1567.0
 margin_right = 830.0
-margin_bottom = 1469.0
+margin_bottom = 1649.0
 custom_fonts/font = ExtResource( 3 )
 text = "Back To Menu"
 
@@ -226,6 +244,7 @@ text = "Back To Menu"
 [connection signal="value_changed" from="MarginContainer/MarginContainer/VBoxContainer/GridContainer/ComboScore-Row4" to="." method="updateSettings"]
 [connection signal="value_changed" from="MarginContainer/MarginContainer/VBoxContainer/GridContainer/GameTime" to="." method="updateSettings"]
 [connection signal="value_changed" from="MarginContainer/MarginContainer/VBoxContainer/GridContainer/InstructionsTime" to="." method="updateSettings"]
+[connection signal="value_changed" from="MarginContainer/MarginContainer/VBoxContainer/GridContainer/PracticeTime" to="." method="updateSettings"]
 [connection signal="pressed" from="MarginContainer/MarginContainer/VBoxContainer/ResetToDefaultBtn" to="." method="setToDefaultSettings"]
 [connection signal="pressed" from="MarginContainer/MarginContainer/VBoxContainer/SaveSettingsBtn" to="." method="saveSettings"]
 [connection signal="pressed" from="MarginContainer/MarginContainer/VBoxContainer/SetToDebugSettingsBtn" to="." method="setToDebugSettings"]
