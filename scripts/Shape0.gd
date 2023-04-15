@@ -95,6 +95,7 @@ func _on_freeze_shape_signal() -> void:
 remote func syncShape(pos):
 	if get_tree().get_rpc_sender_id() != 1:
 		return
+	is_fixed = true
 	print("Client Sync Shape Pos: ", pos)
 	var j=0
 	for ch in get_children():
