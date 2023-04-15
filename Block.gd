@@ -26,7 +26,8 @@ func inactivate_it():
 			Globals.inactive.append(get_parent().position+position)
 			Globals.inactive_blocks.append(self)
 			Globals.inactivate_shape()
-			Globals.rpc("informClientGameState", Globals.inactive, Globals.inactive_blocks)
+			get_parent().emit_signal("freezeShape")
+			
 		# check if full line - regardless of game mode
 		check_full_line()
 

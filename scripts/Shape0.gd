@@ -6,6 +6,11 @@ var is_fixed=false
 var rotation_matrix=[]
 var create_position:Vector2=Vector2.ZERO
 
+signal freezeShape
+
+func _ready() -> void:
+	connect("freezeShape", self, "_on_freeze_shape_signal")
+
 func draw_shape():
 	var ind=0
 	for ch in get_children():
@@ -78,3 +83,16 @@ func move_down():
 				return
 		position.y+=80
 		
+func _on_freeze_shape_signal() -> void:
+	if get_tree().is_network_server():
+		rpc("syncShape", position, rotate_position)
+
+remote func syncShape(pos, rotId):
+	if get_tree().get_rpc_sender_id() != 1:
+		return
+	position = pos
+	var j=0
+	for ch in get_children():
+		ch.position=rotation_matrix[rotId][j]
+		j+=1
+	
