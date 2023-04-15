@@ -18,6 +18,9 @@ var colorNum:int=-1
 var nextColorNum:int=0
 var counter:int=0
 
+var lastUserInputMoveDownTime:int=0
+export(int, 1, 1000) var dropDelay:int
+
 func _ready():
 	# Connect Signals
 	Globals.connect("gameCtrlUpdate", self, "onGameCtrlUpdate")
@@ -164,10 +167,19 @@ func _input(event):
 				rpc("move_left")
 	if Input.is_action_pressed("ui_down"):
 		if Globals.currentGameType == Globals.GAME_TYPE.INDIVIDUAL:
-			userInputMoveDown()
+			var currentTime = OS.get_ticks_msec()
+			if currentTime - lastUserInputMoveDownTime > dropDelay:
+				# every 100ms can send a userinput move down command
+				if active_block:
+					userInputMoveDown()
+				lastUserInputMoveDownTime = currentTime
 		else:
 			if Globals.currentGameControl == Globals.GAME_CONTROL.ROTATE_ONLY or Globals.currentGameControl == Globals.GAME_CONTROL.NORMAL:
-				rpc("userInputMoveDown")
+				var currentTime = OS.get_ticks_msec()
+				if currentTime - lastUserInputMoveDownTime > dropDelay:
+					if active_block:
+						rpc("userInputMoveDown")
+						lastUserInputMoveDownTime = currentTime
 	if Input.is_action_just_pressed("ui_up"):
 		if Globals.currentGameType == Globals.GAME_TYPE.INDIVIDUAL:
 			rotate_shape()

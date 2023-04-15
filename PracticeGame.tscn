@@ -1,14 +1,10 @@
-[gd_scene load_steps=10 format=2]
+[gd_scene load_steps=6 format=2]
 
 [ext_resource path="res://assets/back_of_bkg.png" type="Texture" id=1]
 [ext_resource path="res://assets/bkg.png" type="Texture" id=2]
 [ext_resource path="res://scripts/PracticeGame.gd" type="Script" id=3]
 [ext_resource path="res://HUD.tscn" type="PackedScene" id=4]
 [ext_resource path="res://InstructionsPanel.tscn" type="PackedScene" id=5]
-[ext_resource path="res://assets/Images/PracticeInstructions.jpeg" type="Texture" id=6]
-[ext_resource path="res://assets/Images/IndividualInstructions.jpg" type="Texture" id=7]
-[ext_resource path="res://assets/Images/LocationInstructions.jpg" type="Texture" id=8]
-[ext_resource path="res://assets/Images/RotationInstructions.jpg" type="Texture" id=9]
 
 [node name="Main" type="Node2D"]
 script = ExtResource( 3 )
@@ -32,7 +28,6 @@ centered = false
 
 [node name="InstructionsPanel" parent="CanvasLayer" instance=ExtResource( 5 )]
 visible = false
-InstructionImages = [ ExtResource( 7 ), ExtResource( 9 ), ExtResource( 8 ), ExtResource( 6 ) ]
 
 [node name="SyncTimer" type="Timer" parent="."]
 wait_time = 0.1
