@@ -15,6 +15,8 @@ func inactivate_it():
 		Globals.inactive_blocks.append(self)
 		Globals.inactivate_shape()
 		check_full_line()
+		if Globals.currentGameType == Globals.GAME_TYPE.COLLABORATIVE and get_tree().is_network_server():
+			Globals.rpc("informClientGameState", Globals.inactive, Globals.inactive_blocks)
 
 func can_rotate(val) -> bool:
 	if Globals.inactive.has(Vector2(get_parent().position.x+val.x,get_parent().position.y+val.y)) or is_off_screen(Vector2(get_parent().position.x+val.x,get_parent().position.y+val.y)):

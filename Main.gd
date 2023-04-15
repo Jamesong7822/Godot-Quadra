@@ -151,7 +151,7 @@ remotesync func rotate_shape():
 	sh.rotate_it()
 
 func _input(event):
-	if not sh:
+	if not sh or not active_block:
 		return
 	if Input.is_action_just_pressed("ui_right"):
 		if Globals.currentGameType == Globals.GAME_TYPE.INDIVIDUAL:

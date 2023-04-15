@@ -226,3 +226,9 @@ remote func informServerMyScores(gameInfo:Dictionary) -> void:
 	print("Client Send Over Score: %s" % gameInfo)
 	var clientId = get_tree().get_rpc_sender_id()
 	PLAYER_INFO[clientId] = gameInfo[clientId]
+	
+remote func informClientGameState(inactive, inactive_blocks) -> void:
+	if get_tree().get_rpc_sender_id() != 1:
+		return
+	inactive = inactive
+	inactive_blocks = inactive_blocks
