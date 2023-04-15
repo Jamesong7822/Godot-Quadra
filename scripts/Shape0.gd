@@ -89,14 +89,12 @@ func _on_freeze_shape_signal() -> void:
 	var posArray = []
 	for ch in get_children():
 		posArray.append(ch.global_position)
-	print("Sync Shape Pos: ", posArray)
-	rpc("syncShape", posArray)
+	rpc("syncShapeFreeze", posArray)
 
-remote func syncShape(pos):
+remote func syncShapeFreeze(pos):
 	if get_tree().get_rpc_sender_id() != 1:
 		return
 	is_fixed = true
-	print("Client Sync Shape Pos: ", pos)
 	var j=0
 	for ch in get_children():
 		ch.global_position=pos[j]
