@@ -84,19 +84,20 @@ func move_down():
 		position.y+=80
 		
 func _on_freeze_shape_signal() -> void:
-	if get_tree().is_network_server():
-		print("Sync Shape Pos: ", position)
-		print("Sync Shape Rot: ", rotate_position)
-		rpc("syncShape", position, rotate_position)
+	if not get_tree().is_network_server():
+		return
+	var posArray = []
+	for ch in get_children():
+		posArray.append(ch.position)
+		print("Sync Shape Pos: ", posArray)
+	rpc("syncShape", position)
 
-remote func syncShape(pos, rotId):
+remote func syncShape(pos):
 	if get_tree().get_rpc_sender_id() != 1:
 		return
 	print("Client Sync Shape Pos: ", pos)
-	print("Client Sync Shape Rot: ", rotId)
-	position = pos
 	var j=0
 	for ch in get_children():
-		ch.position=rotation_matrix[rotId][j]
+		ch.position=pos[j]
 		j+=1
 	
