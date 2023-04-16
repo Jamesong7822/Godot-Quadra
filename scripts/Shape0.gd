@@ -57,12 +57,12 @@ func move_left():
 			if not ch.can_move_left():
 				return
 		position.x-=80
-#		if Globals.currentGameType == Globals.GAME_TYPE.COLLABORATIVE and not get_tree().is_network_server():
-#			# client syncs left right
-#			var posInfo = []
-#			for ch in get_children():
-#				posInfo.append(ch.global_position)
-#			rpc("syncShapePos", posInfo)
+		if Globals.currentGameType == Globals.GAME_TYPE.COLLABORATIVE and get_tree().is_network_server():
+			# client syncs left right
+			var posInfo = []
+			for ch in get_children():
+				posInfo.append(ch.global_position)
+			rpc("syncShapePos", posInfo)
 
 func move_right():
 	if not is_fixed:
@@ -70,12 +70,12 @@ func move_right():
 			if not ch.can_move_right():
 				return
 		position.x+=80
-#		if Globals.currentGameType == Globals.GAME_TYPE.COLLABORATIVE and not get_tree().is_network_server():
-#			# client syncs left right
-#			var posInfo = []
-#			for ch in get_children():
-#				posInfo.append(ch.global_position)
-#			rpc("syncShapePos", posInfo)
+		if Globals.currentGameType == Globals.GAME_TYPE.COLLABORATIVE and get_tree().is_network_server():
+			# client syncs left right
+			var posInfo = []
+			for ch in get_children():
+				posInfo.append(ch.global_position)
+			rpc("syncShapePos", posInfo)
 
 func move_down():
 	if not create_position:
@@ -112,14 +112,13 @@ remote func syncShapeFreeze(pos):
 		ch.global_position=pos[j]
 		j+=1
 		
-#remotesync func syncShapePos(pos):
-#	# rpc from client to tell server pos info
-#	# as client controls left right
-#	if get_tree().get_rpc_sender_id() == 1:
-#		return
-#	var j=0
-#	for ch in get_children():
-#		ch.global_position=pos[j]
-#		j+=1
+remote func syncShapePos(pos):
+	# rpc from server to tell client pos info
+	if get_tree().get_rpc_sender_id() != 1:
+		return
+	var j=0
+	for ch in get_children():
+		ch.global_position=pos[j]
+		j+=1
 	
 	
