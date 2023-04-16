@@ -68,7 +68,7 @@ func move_left():
 			var posInfo = []
 			for ch in get_children():
 				posInfo.append(ch.global_position)
-			rpc("syncShapePos", posInfo)
+			rpc("syncShapePos", posInfo, global_position)
 
 func move_right():
 	if not is_fixed:
@@ -87,7 +87,7 @@ func move_right():
 			var posInfo = []
 			for ch in get_children():
 				posInfo.append(ch.global_position)
-			rpc("syncShapePos", posInfo)
+			rpc("syncShapePos", posInfo, global_position)
 
 func move_down():
 	if not create_position:
@@ -124,11 +124,12 @@ remote func syncShapeFreeze(pos):
 		ch.global_position=pos[j]
 		j+=1
 		
-remote func syncShapePos(pos):
+remote func syncShapePos(pos, parentPos):
 	# rpc from server to tell client pos info
 	if get_tree().get_rpc_sender_id() != 1:
 		return
 	var j=0
+	global_position = parentPos
 	for ch in get_children():
 		ch.global_position=pos[j]
 		j+=1
