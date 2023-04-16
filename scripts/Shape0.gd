@@ -39,10 +39,20 @@ func rotate_shape():
 			can_rotate=ch.can_rotate(rotation_matrix[rotate_position][child_pos])
 		child_pos+=1
 	if can_rotate:
-		var j=0
-		for ch in get_children():
-			ch.position=rotation_matrix[rotate_position][j]
-			j+=1
+		if Globals.currentGameType == Globals.GAME_TYPE.INDIVIDUAL:
+			var j=0
+			for ch in get_children():
+				ch.position=rotation_matrix[rotate_position][j]
+				j+=1
+		elif Globals.currentGameType == Globals.GAME_TYPE.COLLABORATIVE and get_tree().is_network_server():
+			# only server can tell client to rotate
+			var j=0
+			for ch in get_children():
+				ch.position=rotation_matrix[rotate_position][j]
+				j+=1
+			rpc("syncShapeRot", rotate_position)
+		else:
+			pass
 		rotate_position=rotate_position+1 if rotate_position<3 else 0
 
 func inactivate_it():
@@ -132,6 +142,15 @@ remote func syncShapePos(pos, parentPos):
 	global_position = parentPos
 	for ch in get_children():
 		ch.global_position=pos[j]
+		j+=1
+		
+remote func syncShapeRot(rotId) -> void:
+	# rpc from server to tell client rotation info
+	if get_tree().get_rpc_sender_id() != 1:
+		return
+	var j=0
+	for ch in get_children():
+		ch.position=rotation_matrix[rotId-1][j]
 		j+=1
 	
 	
