@@ -58,9 +58,9 @@ func move_left():
 				return
 		if Globals.currentGameType == Globals.GAME_TYPE.INDIVIDUAL:
 			position.x-=80
-		elif Globals.currentGameType == Globals.GAME_TYPE.COLLABORATIVE:
+		elif Globals.currentGameType == Globals.GAME_TYPE.COLLABORATIVE and get_tree().is_network_server():
 			# collab mode client will wait for server to send the pos info
-			pass
+			position.x-=80
 		else:
 			pass
 		if Globals.currentGameType == Globals.GAME_TYPE.COLLABORATIVE and get_tree().is_network_server():
@@ -77,9 +77,9 @@ func move_right():
 				return
 		if Globals.currentGameType == Globals.GAME_TYPE.INDIVIDUAL:
 			position.x+=80
-		elif Globals.currentGameType == Globals.GAME_TYPE.COLLABORATIVE:
+		elif Globals.currentGameType == Globals.GAME_TYPE.COLLABORATIVE and get_tree().is_network_server():
 			# collab mode client will wait for server to send the pos info
-			pass
+			position.x+=80
 		else:
 			pass
 		if Globals.currentGameType == Globals.GAME_TYPE.COLLABORATIVE and get_tree().is_network_server():
