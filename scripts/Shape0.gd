@@ -150,7 +150,7 @@ remote func syncShapeRot(rotId) -> void:
 		return
 	var j=0
 	for ch in get_children():
-		ch.position=rotation_matrix[rotId-1][j]
+		ch.position=rotation_matrix[rotId][j]
 		j+=1
 	
 	
