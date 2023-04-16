@@ -234,3 +234,13 @@ remote func informClientGameState(inactive, inactive_blocks) -> void:
 		return
 	inactive = inactive
 	inactive_blocks = inactive_blocks
+
+func forceCalcInactiveArray() -> void:
+	# call this function before the spawn of the next set of tetromino 
+	# (only in collab mode)
+	var inactiveArr = []
+	for block in get_tree().get_nodes_in_group("BLOCKS"):
+		inactiveArr.append(block.global_position)
+	print(inactiveArr == inactive)
+	if inactiveArr != inactive:
+		inactive = inactiveArr
