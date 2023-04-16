@@ -241,6 +241,4 @@ func forceCalcInactiveArray() -> void:
 	var inactiveArr = []
 	for block in get_tree().get_nodes_in_group("BLOCKS"):
 		inactiveArr.append(block.get_parent().position+block.position)
-	print(inactiveArr == inactive)
-	if inactiveArr != inactive:
-		inactive = inactiveArr
+	inactive = inactiveArr

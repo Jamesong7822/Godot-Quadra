@@ -112,7 +112,7 @@ remote func syncShapeFreeze(pos):
 		ch.global_position=pos[j]
 		j+=1
 		
-remote func syncShapePos(pos):
+remotesync func syncShapePos(pos):
 	# rpc from client to tell server pos info
 	# as client controls left right
 	if get_tree().get_rpc_sender_id() == 1:
