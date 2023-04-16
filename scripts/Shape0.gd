@@ -56,7 +56,13 @@ func move_left():
 		for ch in get_children():
 			if not ch.can_move_left():
 				return
-		position.x-=80
+		if Globals.currentGameType == Globals.GAME_TYPE.INDIVIDUAL:
+			position.x-=80
+		elif Globals.currentGameType == Globals.GAME_TYPE.COLLABORATIVE:
+			# collab mode client will wait for server to send the pos info
+			pass
+		else:
+			pass
 		if Globals.currentGameType == Globals.GAME_TYPE.COLLABORATIVE and get_tree().is_network_server():
 			# client syncs left right
 			var posInfo = []
@@ -69,7 +75,13 @@ func move_right():
 		for ch in get_children():
 			if not ch.can_move_right():
 				return
-		position.x+=80
+		if Globals.currentGameType == Globals.GAME_TYPE.INDIVIDUAL:
+			position.x+=80
+		elif Globals.currentGameType == Globals.GAME_TYPE.COLLABORATIVE:
+			# collab mode client will wait for server to send the pos info
+			pass
+		else:
+			pass
 		if Globals.currentGameType == Globals.GAME_TYPE.COLLABORATIVE and get_tree().is_network_server():
 			# client syncs left right
 			var posInfo = []
