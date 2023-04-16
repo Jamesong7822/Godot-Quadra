@@ -240,7 +240,7 @@ func forceCalcInactiveArray() -> void:
 	# (only in collab mode)
 	var inactiveArr = []
 	for block in get_tree().get_nodes_in_group("BLOCKS"):
-		inactiveArr.append(block.global_position)
+		Globals.inactive.append(block.get_parent().position+block.position)
 	print(inactiveArr == inactive)
 	if inactiveArr != inactive:
 		inactive = inactiveArr
