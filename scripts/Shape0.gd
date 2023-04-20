@@ -7,6 +7,7 @@ var rotation_matrix=[]
 var create_position:Vector2=Vector2.ZERO
 
 signal freezeShape
+var hasSentFreezeShapeSignal:bool = false
 
 func _ready() -> void:
 	connect("freezeShape", self, "_on_freeze_shape_signal")
@@ -122,8 +123,12 @@ func _on_freeze_shape_signal() -> void:
 		return
 	var posArray = []
 	for ch in get_children():
+		if ch.is_active:
+			return
 		posArray.append(ch.global_position)
-	rpc("syncShapeFreeze", posArray)
+	if not hasSentFreezeShapeSignal:
+		rpc("syncShapeFreeze", posArray)
+		hasSentFreezeShapeSignal = true
 
 remote func syncShapeFreeze(pos):
 	if get_tree().get_rpc_sender_id() != 1:
@@ -132,7 +137,11 @@ remote func syncShapeFreeze(pos):
 	var j=0
 	for ch in get_children():
 		ch.global_position=pos[j]
+		ch.runInactiveSequence()
 		j+=1
+	# after syncing freeze positions, client's do a check full line!
+	for ch in get_children():
+		ch.check_full_line()
 		
 remote func syncShapePos(pos, parentPos):
 	# rpc from server to tell client pos info
