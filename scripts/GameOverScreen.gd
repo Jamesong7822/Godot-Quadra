@@ -1,15 +1,17 @@
 extends Control
 
+signal clientSentOverScores
+
 func _ready():
-	# give enuff time for the rpc for send sever game score
-	# to work which is called by client
-	yield(get_tree(), "idle_frame")
-	createDirIfRequired()
-	if get_tree().is_network_server():
-		saveUserData(Globals.PLAYER_INFO)
 	# If is practice mode we hide the watch instructions
 	if Globals.isPracticeMode:
 		$MarginContainer/VBoxContainer/WatchInstructions.hide()
+	connect("clientSentOverScores", self, "onClientSentOverScores")
+	if get_tree().is_network_server():
+		rpc("askClientForScores")
+	# give enuff time for the rpc for send sever game score
+	# to work which is called by client
+	yield(get_tree().create_timer(1), "timeout")
 
 func createDirIfRequired() -> void:
 	var dir = Directory.new()
@@ -44,3 +46,13 @@ func saveUserData(dict):
 func _on_BackToMenuButton_pressed() -> void:
 	get_tree().change_scene_to(Globals.mainMenuPreloadedScene)
 	Network.reset()
+	
+remote func askClientForScores() -> void:
+	if get_tree().get_rpc_sender_id() != 1:
+		return
+	Globals.rpc("informServerMyScores", Globals.PLAYER_INFO)
+	
+func onClientSentOverScores() -> void:
+	createDirIfRequired()
+	if get_tree().is_network_server():
+		saveUserData(Globals.PLAYER_INFO)
