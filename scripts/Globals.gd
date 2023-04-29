@@ -229,3 +229,9 @@ remote func informServerMyScores(gameInfo:Dictionary) -> void:
 	var clientId = get_tree().get_rpc_sender_id()
 	PLAYER_INFO[clientId] = gameInfo[clientId]
 	get_tree().get_root().get_node("GameOverScreen").emit_signal("clientSentOverScores")
+	
+remote func askClientForScores() -> void:
+	if get_tree().get_rpc_sender_id() != 1:
+		return
+	print("Receive Server's Asking For Client's Score")
+	rpc("informServerMyScores", Globals.PLAYER_INFO)

@@ -8,7 +8,8 @@ func _ready():
 		$MarginContainer/VBoxContainer/WatchInstructions.hide()
 	connect("clientSentOverScores", self, "onClientSentOverScores")
 	if get_tree().is_network_server():
-		rpc("askClientForScores")
+		print("Server Asking Client For Score")
+		Globals.rpc("askClientForScores")
 	# give enuff time for the rpc for send sever game score
 	# to work which is called by client
 	yield(get_tree().create_timer(1), "timeout")
@@ -46,11 +47,6 @@ func saveUserData(dict):
 func _on_BackToMenuButton_pressed() -> void:
 	get_tree().change_scene_to(Globals.mainMenuPreloadedScene)
 	Network.reset()
-	
-remote func askClientForScores() -> void:
-	if get_tree().get_rpc_sender_id() != 1:
-		return
-	Globals.rpc("informServerMyScores", Globals.PLAYER_INFO)
 	
 func onClientSentOverScores() -> void:
 	createDirIfRequired()
