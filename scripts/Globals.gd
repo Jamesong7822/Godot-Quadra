@@ -223,8 +223,6 @@ func getGameSettings() -> Dictionary:
 	return settings
 	
 remote func informServerMyScores(gameInfo:Dictionary) -> void:
-	if get_tree().get_rpc_sender_id() != 1:
-		return
 	print("Client Send Over Score: %s" % gameInfo)
 	var clientId = get_tree().get_rpc_sender_id()
 	PLAYER_INFO[clientId] = gameInfo[clientId]
