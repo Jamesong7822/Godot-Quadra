@@ -20,3 +20,5 @@ Python Server/build
 DEBUG_LOGS/
 
 .DS_Store
+
+DATA/

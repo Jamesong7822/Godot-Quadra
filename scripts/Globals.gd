@@ -222,6 +222,25 @@ func getGameSettings() -> Dictionary:
 	settings["PracticeTime"] = practiceTime
 	return settings
 	
+remotesync func updateCollabScores() -> void:
+	PLAYER_INFO[get_tree().get_network_unique_id()]["CScore"] = str(points)
+	PLAYER_INFO[get_tree().get_network_unique_id()]["CNumRowsCleared"] = str(numRowsCleared)
+	PLAYER_INFO[get_tree().get_network_unique_id()]["CNumCombo1"] = str(numCombo1)
+	PLAYER_INFO[get_tree().get_network_unique_id()]["CNumCombo2"] = str(numCombo2)
+	PLAYER_INFO[get_tree().get_network_unique_id()]["CNumCombo3"] = str(numCombo3)
+	PLAYER_INFO[get_tree().get_network_unique_id()]["CNumCombo4"] = str(numCombo4)
+	PLAYER_INFO[get_tree().get_network_unique_id()]["CNumTimesDied"] = str(numTimesClearBoard)
+	PLAYER_INFO[get_tree().get_network_unique_id()]["CGameControl"] = str(GAME_CONTROL.keys()[currentGameControl])
+	
+remotesync func updateIndivScores() -> void:
+	PLAYER_INFO[get_tree().get_network_unique_id()]["IScore"] = str(points)
+	PLAYER_INFO[get_tree().get_network_unique_id()]["INumRowsCleared"] = str(numRowsCleared)
+	PLAYER_INFO[get_tree().get_network_unique_id()]["INumCombo1"] = str(numCombo1)
+	PLAYER_INFO[get_tree().get_network_unique_id()]["INumCombo2"] = str(numCombo2)
+	PLAYER_INFO[get_tree().get_network_unique_id()]["INumCombo3"] = str(numCombo3)
+	PLAYER_INFO[get_tree().get_network_unique_id()]["INumCombo4"] = str(numCombo4)
+	PLAYER_INFO[get_tree().get_network_unique_id()]["INumTimesDied"] = str(numTimesClearBoard)
+	
 remote func informServerMyScores(gameInfo:Dictionary) -> void:
 	print("Client Send Over Score: %s" % gameInfo)
 	var clientId = get_tree().get_rpc_sender_id()
