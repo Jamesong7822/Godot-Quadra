@@ -190,6 +190,7 @@ func _input(event):
 func _on_GameTimer_timeout() -> void:
 #	if not get_tree().is_network_server():
 #		return
+	print("GAME TIMER TIMEOUT")
 	if Globals.currentGameMode == Globals.GAME_MODE.INDIVIDUAL_FIRST:
 		if Globals.currentGameType == Globals.GAME_TYPE.INDIVIDUAL:
 			# Save To Dictionary First

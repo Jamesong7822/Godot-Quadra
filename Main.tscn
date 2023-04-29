@@ -22,6 +22,7 @@ centered = false
 [node name="Timer" type="Timer" parent="."]
 
 [node name="GameTimer" type="Timer" parent="."]
+one_shot = true
 
 [node name="CanvasLayer" type="CanvasLayer" parent="."]
 
