@@ -124,8 +124,6 @@ remotesync func clearBoard() -> void:
 	print("CLEARING BOARD")
 	# Subtract penalty from score
 	points -= penaltyScore
-#	for block in inactive_blocks:
-#		block.queue_free()
 	for block in get_tree().get_nodes_in_group("BLOCKS"):
 		block.queue_free()
 	# Clear the inactive blocks
