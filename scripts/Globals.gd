@@ -226,17 +226,3 @@ remote func informServerMyScores(gameInfo:Dictionary) -> void:
 	print("Client Send Over Score: %s" % gameInfo)
 	var clientId = get_tree().get_rpc_sender_id()
 	PLAYER_INFO[clientId] = gameInfo[clientId]
-	
-remote func informClientGameState(inactive, inactive_blocks) -> void:
-	if get_tree().get_rpc_sender_id() != 1:
-		return
-	inactive = inactive
-	inactive_blocks = inactive_blocks
-
-func forceCalcInactiveArray() -> void:
-	# call this function before the spawn of the next set of tetromino 
-	# (only in collab mode)
-	var inactiveArr = []
-	for block in get_tree().get_nodes_in_group("BLOCKS"):
-		inactiveArr.append(block.get_parent().position+block.position)
-	inactive = inactiveArr
