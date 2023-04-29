@@ -6,6 +6,12 @@ var is_fixed=false
 var rotation_matrix=[]
 var create_position:Vector2=Vector2.ZERO
 
+signal freezeShape
+var hasSentFreezeShapeSignal:bool = false
+
+func _ready() -> void:
+	connect("freezeShape", self, "_on_freeze_shape_signal")
+
 func draw_shape():
 	var ind=0
 	for ch in get_children():
@@ -34,10 +40,20 @@ func rotate_shape():
 			can_rotate=ch.can_rotate(rotation_matrix[rotate_position][child_pos])
 		child_pos+=1
 	if can_rotate:
-		var j=0
-		for ch in get_children():
-			ch.position=rotation_matrix[rotate_position][j]
-			j+=1
+		if Globals.currentGameType == Globals.GAME_TYPE.INDIVIDUAL:
+			var j=0
+			for ch in get_children():
+				ch.position=rotation_matrix[rotate_position][j]
+				j+=1
+		elif Globals.currentGameType == Globals.GAME_TYPE.COLLABORATIVE and get_tree().is_network_server():
+			# only server can tell client to rotate
+			var j=0
+			for ch in get_children():
+				ch.position=rotation_matrix[rotate_position][j]
+				j+=1
+			rpc("syncShapeRot", rotate_position)
+		else:
+			pass
 		rotate_position=rotate_position+1 if rotate_position<3 else 0
 
 func inactivate_it():
@@ -51,14 +67,38 @@ func move_left():
 		for ch in get_children():
 			if not ch.can_move_left():
 				return
-		position.x-=80
+		if Globals.currentGameType == Globals.GAME_TYPE.INDIVIDUAL:
+			position.x-=80
+		elif Globals.currentGameType == Globals.GAME_TYPE.COLLABORATIVE and get_tree().is_network_server():
+			# collab mode client will wait for server to send the pos info
+			position.x-=80
+		else:
+			pass
+		if Globals.currentGameType == Globals.GAME_TYPE.COLLABORATIVE and get_tree().is_network_server():
+			# client syncs left right
+			var posInfo = []
+			for ch in get_children():
+				posInfo.append(ch.global_position)
+			rpc("syncShapePos", posInfo, global_position)
 
 func move_right():
 	if not is_fixed:
 		for ch in get_children():
 			if not ch.can_move_right():
 				return
-		position.x+=80
+		if Globals.currentGameType == Globals.GAME_TYPE.INDIVIDUAL:
+			position.x+=80
+		elif Globals.currentGameType == Globals.GAME_TYPE.COLLABORATIVE and get_tree().is_network_server():
+			# collab mode client will wait for server to send the pos info
+			position.x+=80
+		else:
+			pass
+		if Globals.currentGameType == Globals.GAME_TYPE.COLLABORATIVE and get_tree().is_network_server():
+			# client syncs left right
+			var posInfo = []
+			for ch in get_children():
+				posInfo.append(ch.global_position)
+			rpc("syncShapePos", posInfo, global_position)
 
 func move_down():
 	if not create_position:
@@ -78,3 +118,46 @@ func move_down():
 				return
 		position.y+=80
 		
+func _on_freeze_shape_signal() -> void:
+	if not get_tree().is_network_server():
+		return
+	var posArray = []
+	for ch in get_children():
+		if ch.is_active:
+			return
+		posArray.append(ch.global_position)
+	if not hasSentFreezeShapeSignal:
+		rpc("syncShapeFreeze", posArray)
+		hasSentFreezeShapeSignal = true
+
+remote func syncShapeFreeze(pos):
+	if get_tree().get_rpc_sender_id() != 1:
+		return
+	is_fixed = true
+	var j=0
+	for ch in get_children():
+		ch.global_position=pos[j]
+		ch.runInactiveSequence()
+		j+=1
+	# after syncing freeze positions, client's do a check full line!
+	for ch in get_children():
+		ch.check_full_line()
+		
+remote func syncShapePos(pos, parentPos):
+	# rpc from server to tell client pos info
+	if get_tree().get_rpc_sender_id() != 1:
+		return
+	var j=0
+	global_position = parentPos
+	for ch in get_children():
+		ch.global_position=pos[j]
+		j+=1
+		
+remote func syncShapeRot(rotId) -> void:
+	# rpc from server to tell client rotation info
+	if get_tree().get_rpc_sender_id() != 1:
+		return
+	var j=0
+	for ch in get_children():
+		ch.position=rotation_matrix[rotId][j]
+		j+=1

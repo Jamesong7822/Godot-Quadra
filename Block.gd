@@ -8,13 +8,24 @@ func _ready():
 
 func inactivate_it():
 	if is_active:
-		get_parent().is_fixed=true
-		is_active=false
-		get_tree().root.get_node("Main").active_block=false
-		Globals.inactive.append(get_parent().position+position)
-		Globals.inactive_blocks.append(self)
-		Globals.inactivate_shape()
-		check_full_line()
+		if Globals.currentGameType == Globals.GAME_TYPE.INDIVIDUAL:
+			runInactiveSequence()
+			check_full_line()
+			
+		elif Globals.currentGameType == Globals.GAME_TYPE.COLLABORATIVE:
+			if get_tree().is_network_server():
+				runInactiveSequence()
+				get_parent().emit_signal("freezeShape")
+				check_full_line()
+			
+func runInactiveSequence() -> void:
+	# call this function for indiv mode or server
+	get_parent().is_fixed=true
+	is_active=false
+	get_tree().root.get_node("Main").active_block=false
+	Globals.inactive.append(get_parent().position+position)
+	Globals.inactive_blocks.append(self)
+	Globals.inactivate_shape()
 
 func can_rotate(val) -> bool:
 	if Globals.inactive.has(Vector2(get_parent().position.x+val.x,get_parent().position.y+val.y)) or is_off_screen(Vector2(get_parent().position.x+val.x,get_parent().position.y+val.y)):
