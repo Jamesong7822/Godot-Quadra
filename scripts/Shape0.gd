@@ -128,7 +128,7 @@ func _on_freeze_shape_signal() -> void:
 		posArray.append(ch.global_position)
 	if not hasSentFreezeShapeSignal:
 		rpc("syncShapeFreeze", posArray)
-		hasSentFreezeShapeSignal = true
+		#hasSentFreezeShapeSignal = true
 
 remote func syncShapeFreeze(pos):
 	if get_tree().get_rpc_sender_id() != 1:
