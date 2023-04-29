@@ -18,6 +18,7 @@ var nextColorNum:int=0
 var colours = [Color.gold, Color.royalblue, Color.indianred, Color.yellowgreen, Color.darkorange, Color.darkturquoise, Color.orchid]
 
 func _ready():
+	name="Main"
 	shapes=[shape1,shape2,shape3,shape4,shape5,shape6,shape7]
 	rnd.randomize()
 	$CanvasLayer/InstructionsPanel.connect("finished", self, "on_instructions_panel_finished")
