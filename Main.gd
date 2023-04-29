@@ -64,7 +64,7 @@ func _on_Timer_timeout():
 		nextColorNum = rnd.randi()%7
 		if Globals.currentGameType == Globals.GAME_TYPE.COLLABORATIVE and get_tree().is_network_server():
 			# force update inactive array
-			Globals.forceCalcInactiveArray()
+			#Globals.forceCalcInactiveArray()
 			rpc("spawnBlock", num, next_num, colorNum, nextColorNum, counter)
 		elif Globals.currentGameType == Globals.GAME_TYPE.INDIVIDUAL:
 			spawnBlock(num, next_num, colorNum,nextColorNum, counter)
