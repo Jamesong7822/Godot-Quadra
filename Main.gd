@@ -190,16 +190,11 @@ func _input(event):
 func _on_GameTimer_timeout() -> void:
 #	if not get_tree().is_network_server():
 #		return
+	print("GAME TIMER TIMEOUT")
 	if Globals.currentGameMode == Globals.GAME_MODE.INDIVIDUAL_FIRST:
 		if Globals.currentGameType == Globals.GAME_TYPE.INDIVIDUAL:
-			# Save To Dictionary First
-			Globals.PLAYER_INFO[get_tree().get_network_unique_id()]["IScore"] = str(Globals.points)
-			Globals.PLAYER_INFO[get_tree().get_network_unique_id()]["INumRowsCleared"] = str(Globals.numRowsCleared)
-			Globals.PLAYER_INFO[get_tree().get_network_unique_id()]["INumCombo1"] = str(Globals.numCombo1)
-			Globals.PLAYER_INFO[get_tree().get_network_unique_id()]["INumCombo2"] = str(Globals.numCombo2)
-			Globals.PLAYER_INFO[get_tree().get_network_unique_id()]["INumCombo3"] = str(Globals.numCombo3)
-			Globals.PLAYER_INFO[get_tree().get_network_unique_id()]["INumCombo4"] = str(Globals.numCombo4)
-			Globals.PLAYER_INFO[get_tree().get_network_unique_id()]["INumTimesDied"] = str(Globals.numTimesClearBoard)
+			# Save to player dict
+			Globals.rpc("updateIndivScores")
 			
 			print(Globals.PLAYER_INFO)
 			# Send event
@@ -210,20 +205,11 @@ func _on_GameTimer_timeout() -> void:
 			Globals.changeScene(Globals.breakScreenScene)
 			
 		elif Globals.currentGameType == Globals.GAME_TYPE.COLLABORATIVE:
-			# Save to dictionary first
-			Globals.PLAYER_INFO[get_tree().get_network_unique_id()]["CScore"] = str(Globals.points)
-			Globals.PLAYER_INFO[get_tree().get_network_unique_id()]["CNumRowsCleared"] = str(Globals.numRowsCleared)
-			Globals.PLAYER_INFO[get_tree().get_network_unique_id()]["CNumCombo1"] = str(Globals.numCombo1)
-			Globals.PLAYER_INFO[get_tree().get_network_unique_id()]["CNumCombo2"] = str(Globals.numCombo2)
-			Globals.PLAYER_INFO[get_tree().get_network_unique_id()]["CNumCombo3"] = str(Globals.numCombo3)
-			Globals.PLAYER_INFO[get_tree().get_network_unique_id()]["CNumCombo4"] = str(Globals.numCombo4)
-			Globals.PLAYER_INFO[get_tree().get_network_unique_id()]["CNumTimesDied"] = str(Globals.numTimesClearBoard)
-			Globals.PLAYER_INFO[get_tree().get_network_unique_id()]["CGameControl"] = str(Globals.GAME_CONTROL.keys()[Globals.currentGameControl])
+			# Save to player dict first
+			Globals.rpc("updateCollabScores")
 			
 			print(Globals.PLAYER_INFO)
-			# Client Send To Server Game Info
-			if not get_tree().is_network_server():
-				Globals.rpc("informServerMyScores", Globals.PLAYER_INFO)
+			
 			# Send End Event
 			Network.sendData("END_C")
 			# Go To End Game Scene
@@ -235,14 +221,7 @@ func _on_GameTimer_timeout() -> void:
 		# COLLAB FIRST
 		if Globals.currentGameType == Globals.GAME_TYPE.COLLABORATIVE:
 			# Save to player dict first
-			Globals.PLAYER_INFO[get_tree().get_network_unique_id()]["CScore"] = str(Globals.points)
-			Globals.PLAYER_INFO[get_tree().get_network_unique_id()]["CNumRowsCleared"] = str(Globals.numRowsCleared)
-			Globals.PLAYER_INFO[get_tree().get_network_unique_id()]["CNumCombo1"] = str(Globals.numCombo1)
-			Globals.PLAYER_INFO[get_tree().get_network_unique_id()]["CNumCombo2"] = str(Globals.numCombo2)
-			Globals.PLAYER_INFO[get_tree().get_network_unique_id()]["CNumCombo3"] = str(Globals.numCombo3)
-			Globals.PLAYER_INFO[get_tree().get_network_unique_id()]["CNumCombo4"] = str(Globals.numCombo4)
-			Globals.PLAYER_INFO[get_tree().get_network_unique_id()]["CNumTimesDied"] = str(Globals.numTimesClearBoard)
-			Globals.PLAYER_INFO[get_tree().get_network_unique_id()]["CGameControl"] = str(Globals.GAME_CONTROL.keys()[Globals.currentGameControl])
+			Globals.rpc("updateCollabScores")
 			
 			print(Globals.PLAYER_INFO)
 			# Send event
@@ -254,18 +233,9 @@ func _on_GameTimer_timeout() -> void:
 			
 		elif Globals.currentGameType == Globals.GAME_TYPE.INDIVIDUAL:
 			# Save to player dict
-			Globals.PLAYER_INFO[get_tree().get_network_unique_id()]["IScore"] = str(Globals.points)
-			Globals.PLAYER_INFO[get_tree().get_network_unique_id()]["INumRowsCleared"] = str(Globals.numRowsCleared)
-			Globals.PLAYER_INFO[get_tree().get_network_unique_id()]["INumCombo1"] = str(Globals.numCombo1)
-			Globals.PLAYER_INFO[get_tree().get_network_unique_id()]["INumCombo2"] = str(Globals.numCombo2)
-			Globals.PLAYER_INFO[get_tree().get_network_unique_id()]["INumCombo3"] = str(Globals.numCombo3)
-			Globals.PLAYER_INFO[get_tree().get_network_unique_id()]["INumCombo4"] = str(Globals.numCombo4)
-			Globals.PLAYER_INFO[get_tree().get_network_unique_id()]["INumTimesDied"] = str(Globals.numTimesClearBoard)
+			Globals.rpc("updateIndivScores")
 			
 			print(Globals.PLAYER_INFO)
-			# Client Send To Server Game Info
-			if not get_tree().is_network_server():
-				Globals.rpc("informServerMyScores", Globals.PLAYER_INFO)
 			
 			# Send End Event
 			Network.sendData("END_I")
