@@ -62,12 +62,14 @@ _global_script_class_icons={
 
 [application]
 
-config/name="Getris"
+config/name="Godot-Quadra"
+run/main_scene="res://MainMenu.tscn"
 config/icon="res://icon.png"
 
 [autoload]
 
 Globals="*res://scripts/Globals.gd"
+Network="*res://Autoloads/Network.gd"
 
 [display]
 
@@ -80,4 +82,5 @@ window/stretch/aspect="keep"
 
 [rendering]
 
+2d/snapping/use_gpu_pixel_snap=true
 environment/default_environment="res://default_env.tres"

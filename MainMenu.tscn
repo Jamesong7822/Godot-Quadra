@@ -1,0 +1,116 @@
+[gd_scene load_steps=7 format=2]
+
+[ext_resource path="res://assets/Font Resources/ButtonFont.tres" type="DynamicFont" id=1]
+[ext_resource path="res://scripts/MainMenu.gd" type="Script" id=2]
+[ext_resource path="res://assets/Font Resources/Title_Font.tres" type="DynamicFont" id=3]
+[ext_resource path="res://assets/Resources/BG.tres" type="StyleBox" id=4]
+[ext_resource path="res://assets/Resources/BG_Overlay.tres" type="StyleBox" id=5]
+
+[sub_resource type="Theme" id=1]
+
+[node name="MainMenu" type="Control"]
+anchor_right = 1.0
+anchor_bottom = 1.0
+script = ExtResource( 2 )
+
+[node name="BG" type="Panel" parent="."]
+anchor_right = 1.0
+anchor_bottom = 1.0
+size_flags_horizontal = 3
+size_flags_vertical = 3
+theme = SubResource( 1 )
+custom_styles/panel = ExtResource( 4 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="MarginContainer" type="MarginContainer" parent="."]
+margin_right = 1080.0
+margin_bottom = 1920.0
+size_flags_horizontal = 3
+size_flags_vertical = 3
+custom_constants/margin_right = 64
+custom_constants/margin_top = 64
+custom_constants/margin_left = 64
+custom_constants/margin_bottom = 64
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Panel" type="Panel" parent="MarginContainer"]
+margin_left = 64.0
+margin_top = 64.0
+margin_right = 1016.0
+margin_bottom = 1856.0
+custom_styles/panel = ExtResource( 5 )
+
+[node name="Label" type="Label" parent="MarginContainer"]
+margin_left = 64.0
+margin_top = 64.0
+margin_right = 1016.0
+margin_bottom = 211.0
+size_flags_vertical = 0
+custom_fonts/font = ExtResource( 3 )
+text = "Quadra"
+align = 1
+
+[node name="CenterContainer" type="CenterContainer" parent="MarginContainer"]
+margin_left = 64.0
+margin_top = 64.0
+margin_right = 1016.0
+margin_bottom = 1856.0
+
+[node name="ButtonContainer" type="VBoxContainer" parent="MarginContainer/CenterContainer"]
+margin_left = 309.0
+margin_top = 640.0
+margin_right = 643.0
+margin_bottom = 1152.0
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="StartGameButton" type="Button" parent="MarginContainer/CenterContainer/ButtonContainer"]
+margin_right = 334.0
+margin_bottom = 82.0
+custom_fonts/font = ExtResource( 1 )
+text = "Start Game"
+
+[node name="PracticeButton" type="Button" parent="MarginContainer/CenterContainer/ButtonContainer"]
+margin_top = 86.0
+margin_right = 334.0
+margin_bottom = 168.0
+custom_fonts/font = ExtResource( 1 )
+text = "Practice"
+
+[node name="HelpButton" type="Button" parent="MarginContainer/CenterContainer/ButtonContainer"]
+margin_top = 172.0
+margin_right = 334.0
+margin_bottom = 254.0
+custom_fonts/font = ExtResource( 1 )
+text = "Help"
+
+[node name="CreditsButton" type="Button" parent="MarginContainer/CenterContainer/ButtonContainer"]
+margin_top = 258.0
+margin_right = 334.0
+margin_bottom = 340.0
+custom_fonts/font = ExtResource( 1 )
+text = "Credits"
+
+[node name="SettingsButton" type="Button" parent="MarginContainer/CenterContainer/ButtonContainer"]
+margin_top = 344.0
+margin_right = 334.0
+margin_bottom = 426.0
+custom_fonts/font = ExtResource( 1 )
+text = "Settings"
+
+[node name="ExitButton" type="Button" parent="MarginContainer/CenterContainer/ButtonContainer"]
+margin_top = 430.0
+margin_right = 334.0
+margin_bottom = 512.0
+custom_fonts/font = ExtResource( 1 )
+text = "Exit"
+
+[connection signal="pressed" from="MarginContainer/CenterContainer/ButtonContainer/StartGameButton" to="." method="_on_StartGameButton_pressed"]
+[connection signal="pressed" from="MarginContainer/CenterContainer/ButtonContainer/PracticeButton" to="." method="_on_PracticeButton_pressed"]
+[connection signal="pressed" from="MarginContainer/CenterContainer/ButtonContainer/SettingsButton" to="." method="_on_SettingsButton_pressed"]
+[connection signal="pressed" from="MarginContainer/CenterContainer/ButtonContainer/ExitButton" to="." method="_on_ExitButton_pressed"]

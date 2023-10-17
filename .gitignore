@@ -7,3 +7,18 @@ export_presets.cfg
 # Mono-specific ignores
 .mono/
 data_*/
+
+Exports/
+
+Python Server/venv
+
+Python Server/dist
+Python Server/build
+
+*.spec
+
+DEBUG_LOGS/
+
+.DS_Store
+
+DATA/

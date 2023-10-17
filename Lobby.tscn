@@ -1,0 +1,138 @@
+[gd_scene load_steps=7 format=2]
+
+[ext_resource path="res://assets/Resources/BG.tres" type="StyleBox" id=1]
+[ext_resource path="res://assets/Resources/BG_Overlay.tres" type="StyleBox" id=2]
+[ext_resource path="res://assets/Font Resources/ButtonFont.tres" type="DynamicFont" id=3]
+[ext_resource path="res://assets/Font Resources/Title_Font.tres" type="DynamicFont" id=4]
+[ext_resource path="res://scripts/Lobby.gd" type="Script" id=5]
+[ext_resource path="res://PlayerList.tscn" type="PackedScene" id=6]
+
+[node name="Lobby" type="Control"]
+anchor_right = 1.0
+anchor_bottom = 1.0
+script = ExtResource( 5 )
+
+[node name="Panel" type="Panel" parent="."]
+anchor_right = 1.0
+anchor_bottom = 1.0
+custom_styles/panel = ExtResource( 1 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="MarginContainer" type="MarginContainer" parent="."]
+anchor_right = 1.0
+anchor_bottom = 1.0
+custom_constants/margin_right = 128
+custom_constants/margin_top = 128
+custom_constants/margin_left = 128
+custom_constants/margin_bottom = 128
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Panel" type="Panel" parent="MarginContainer"]
+margin_left = 128.0
+margin_top = 128.0
+margin_right = 952.0
+margin_bottom = 1792.0
+custom_styles/panel = ExtResource( 2 )
+
+[node name="CenterContainer" type="CenterContainer" parent="MarginContainer"]
+margin_left = 128.0
+margin_top = 128.0
+margin_right = 952.0
+margin_bottom = 1792.0
+size_flags_horizontal = 3
+size_flags_vertical = 3
+
+[node name="VBoxContainer" type="VBoxContainer" parent="MarginContainer/CenterContainer"]
+margin_left = 130.0
+margin_top = 66.0
+margin_right = 693.0
+margin_bottom = 1597.0
+rect_min_size = Vector2( 500, 0 )
+size_flags_horizontal = 3
+size_flags_vertical = 3
+custom_constants/separation = 80
+
+[node name="SubjectIDInput" type="LineEdit" parent="MarginContainer/CenterContainer/VBoxContainer"]
+margin_right = 563.0
+margin_bottom = 86.0
+custom_fonts/font = ExtResource( 3 )
+align = 1
+expand_to_text_length = true
+placeholder_text = "Key In Subject ID"
+
+[node name="IPAddressInput" type="LineEdit" parent="MarginContainer/CenterContainer/VBoxContainer"]
+margin_top = 166.0
+margin_right = 563.0
+margin_bottom = 252.0
+rect_min_size = Vector2( 550, 0 )
+size_flags_horizontal = 3
+size_flags_vertical = 3
+custom_fonts/font = ExtResource( 3 )
+align = 1
+expand_to_text_length = true
+placeholder_text = "Key In IP Address"
+
+[node name="VBoxContainer" type="VBoxContainer" parent="MarginContainer/CenterContainer/VBoxContainer"]
+margin_top = 332.0
+margin_right = 563.0
+margin_bottom = 500.0
+size_flags_horizontal = 3
+size_flags_vertical = 3
+
+[node name="CreateServerButton" type="Button" parent="MarginContainer/CenterContainer/VBoxContainer/VBoxContainer"]
+margin_right = 563.0
+margin_bottom = 82.0
+size_flags_horizontal = 3
+size_flags_vertical = 3
+custom_fonts/font = ExtResource( 3 )
+text = "Create Server"
+
+[node name="JoinServerButton" type="Button" parent="MarginContainer/CenterContainer/VBoxContainer/VBoxContainer"]
+margin_top = 86.0
+margin_right = 563.0
+margin_bottom = 168.0
+size_flags_horizontal = 3
+size_flags_vertical = 3
+custom_fonts/font = ExtResource( 3 )
+text = "Join Server"
+
+[node name="PlayerList" parent="MarginContainer/CenterContainer/VBoxContainer" instance=ExtResource( 6 )]
+anchor_right = 0.0
+anchor_bottom = 0.0
+margin_top = 580.0
+margin_right = 563.0
+margin_bottom = 980.0
+rect_min_size = Vector2( 0, 400 )
+
+[node name="SelectGameModeButton" type="Button" parent="MarginContainer/CenterContainer/VBoxContainer"]
+margin_top = 1060.0
+margin_right = 563.0
+margin_bottom = 1142.0
+custom_fonts/font = ExtResource( 3 )
+disabled = true
+toggle_mode = true
+text = "Individual First"
+
+[node name="StartGameButton" type="Button" parent="MarginContainer/CenterContainer/VBoxContainer"]
+margin_top = 1222.0
+margin_right = 563.0
+margin_bottom = 1304.0
+custom_fonts/font = ExtResource( 3 )
+text = "Start Game"
+
+[node name="IPAddress" type="Label" parent="MarginContainer/CenterContainer/VBoxContainer"]
+margin_top = 1384.0
+margin_right = 563.0
+margin_bottom = 1531.0
+custom_fonts/font = ExtResource( 4 )
+text = "192.168.1.1"
+
+[connection signal="text_changed" from="MarginContainer/CenterContainer/VBoxContainer/SubjectIDInput" to="." method="_on_SubjectIDInput_text_changed"]
+[connection signal="pressed" from="MarginContainer/CenterContainer/VBoxContainer/VBoxContainer/CreateServerButton" to="." method="_on_CreateServerButton_pressed"]
+[connection signal="pressed" from="MarginContainer/CenterContainer/VBoxContainer/VBoxContainer/JoinServerButton" to="." method="_on_JoinServerButton_pressed"]
+[connection signal="toggled" from="MarginContainer/CenterContainer/VBoxContainer/SelectGameModeButton" to="." method="_on_SelectGameModeButton_toggled"]
+[connection signal="pressed" from="MarginContainer/CenterContainer/VBoxContainer/StartGameButton" to="." method="_on_StartGameButton_pressed"]

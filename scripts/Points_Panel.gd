@@ -1,8 +1,8 @@
-extends Node2D
+extends Control
 
 func _ready():
-	$RichTextLabel.bbcode_text=str(Globals.points).pad_zeros(6)
-	Globals.connect("add_points",self,"add_points")
+	$HBoxContainer/Label.text=str(Globals.points)
+	Globals.connect("update_points",self,"update_points")
 
-func add_points():
-	$RichTextLabel.bbcode_text=str(Globals.points).pad_zeros(6)
+func update_points():
+	$HBoxContainer/Label.text=str(Globals.points)
