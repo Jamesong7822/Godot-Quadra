@@ -215,7 +215,7 @@ func _on_GameTimer_timeout() -> void:
 			# Go To End Game Scene
 			Globals.changeGameState(Globals.GAME_TYPE.END)
 			# change scene
-			Globals.changeScene((Globals.endGameScene))
+			Globals.changeScene(Globals.endGameScene)
 			
 	else:
 		# COLLAB FIRST
@@ -242,7 +242,7 @@ func _on_GameTimer_timeout() -> void:
 			# Go To End Game Scene
 			Globals.changeGameState(Globals.GAME_TYPE.END)
 			# change scene
-			Globals.changeScene((Globals.endGameScene))
+			Globals.changeScene(Globals.endGameScene)
 
 func _on_SyncTimer_timeout() -> void:
 	# Sync game time

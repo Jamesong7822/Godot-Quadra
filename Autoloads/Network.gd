@@ -18,6 +18,7 @@ func _ready() -> void:
 	getIPAddress()
 	get_tree().connect("connected_to_server", self, "_connected_to_server")
 	get_tree().connect("server_disconnected", self, "_server_disconnected")
+	get_tree().connect("network_peer_connected", self, "_on_peer_connected")
 	connectToPythonServer()
 	
 func _process(delta: float) -> void:
@@ -72,6 +73,12 @@ func _connected_to_server() -> void:
 
 func _server_disconnected() -> void:
 	print("Disconnected From Server")
+	
+func _on_peer_connected(id) -> void:
+	if get_tree().is_network_server():
+		server.set_peer_timeout(id, Globals.NETWORK_TIMEOUT_LIMIT, Globals.NETWORK_TIMEOUT_MIN_MS, Globals.NETWORK_TIMEOUT_MAX_MS)
+	else:
+		client.set_peer_timeout(id, Globals.NETWORK_TIMEOUT_LIMIT, Globals.NETWORK_TIMEOUT_MIN_MS, Globals.NETWORK_TIMEOUT_MAX_MS)
 	
 func on_python_server_closed(wasClean:bool) -> void:
 	print("Python Server Closed")

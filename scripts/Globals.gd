@@ -44,6 +44,14 @@ enum GAME_CONTROL {NORMAL, MOVE_ONLY, ROTATE_ONLY}
 const GAME_LOG_DIR = "DATA"
 const GAME_CONFIG_DIR = "CONFIG"
 
+# Special Exit Logging
+const EXIT_GAME_LOG_DIR = "EXIT GAME DATA"
+
+# Special Peer Disconnection
+const NETWORK_TIMEOUT_LIMIT = 1000
+const NETWORK_TIMEOUT_MIN_MS = 15000
+const NETWORK_TIMEOUT_MAX_MS = 30000
+
 var PLAYER_INFO ={}
 
 signal inact_shape
@@ -182,6 +190,9 @@ remotesync func updateGameControl(gameControl):
 func _notification(what):
 	if what == MainLoop.NOTIFICATION_WM_QUIT_REQUEST:
 		Network.sendData("STOP_SERVER")
+		# SAVE DATA HERE
+		createDirIfRequired(EXIT_GAME_LOG_DIR)
+		saveUserData(EXIT_GAME_LOG_DIR, PLAYER_INFO)
 		get_tree().quit() # default behavior
 		
 remotesync func syncGameMode(gameMode:bool) -> void:
@@ -252,3 +263,38 @@ remote func askClientForScores() -> void:
 		return
 	print("Receive Server's Asking For Client's Score")
 	rpc("informServerMyScores", Globals.PLAYER_INFO)
+
+func createDirIfRequired(directory:String) -> void:
+	# Special function to create a directory if it does not exist
+	var dir = Directory.new()
+	if not dir.dir_exists(directory):
+		print("%s does not exist. Creating!" % directory)
+		dir.open(".")
+		var err = dir.make_dir(directory)
+		if err != OK:
+			print("Error Creating %s with error code: %s" % [directory, err])
+
+func saveUserData(directory:String, data:Dictionary):
+	var date = Time.get_date_string_from_system()
+	var time = OS.get_time()
+	var filename = "%s/%s %s_%s_%s.txt" % [directory, date, str(time.hour), str(time.minute), str(time.second)]
+	var saveHandle = File.new()
+	var err = saveHandle.open(filename, File.WRITE)
+	if err != OK:
+		print("Error Saving User Data! %s" % err)
+	else:
+		var csv = []
+		var playerList = data.keys()
+		if len(playerList) < 1:
+			# No player info
+			pass
+		else:
+			var headers = data[1].keys()
+			saveHandle.store_csv_line(headers)
+			for player in playerList:
+				var playerData = []
+				for key in headers:
+					playerData.append(data[player][key])
+				saveHandle.store_csv_line(playerData)
+			saveHandle.close()
+			print("Saved User Data In: %s" % filename)
