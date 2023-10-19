@@ -59,6 +59,8 @@ func connectToPythonServer() -> void:
 func createServer() -> void:
 	server = NetworkedMultiplayerENet.new()
 	server.create_server(DEFAULT_PORT, MAX_CLIENTS)
+	server.transfer_mode = NetworkedMultiplayerPeer.TRANSFER_MODE_UNRELIABLE_ORDERED
+	server.always_ordered = true
 	get_tree().set_network_peer(server)
 	emit_signal("server_created")
 	print("Server Created Successfully")
@@ -66,6 +68,8 @@ func createServer() -> void:
 func joinServer() -> void:
 	client = NetworkedMultiplayerENet.new()
 	client.create_client(ipAddress, DEFAULT_PORT)
+	client.transfer_mode = NetworkedMultiplayerPeer.TRANSFER_MODE_UNRELIABLE_ORDERED
+	client.always_ordered = true
 	get_tree().set_network_peer(client)
 	
 func _connected_to_server() -> void:
