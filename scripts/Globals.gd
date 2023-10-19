@@ -47,11 +47,6 @@ const GAME_CONFIG_DIR = "CONFIG"
 # Special Exit Logging
 const EXIT_GAME_LOG_DIR = "EXIT GAME DATA"
 
-# Special Peer Disconnection
-const NETWORK_TIMEOUT_LIMIT = 1000
-const NETWORK_TIMEOUT_MIN_MS = 15000
-const NETWORK_TIMEOUT_MAX_MS = 30000
-
 var PLAYER_INFO ={}
 
 signal inact_shape
